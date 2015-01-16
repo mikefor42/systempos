@@ -4,5 +4,5 @@ package syscom.dao;
 *Collaboration Miguel Angel Hernandez
 */
 public interface ConfiguracionesDAO {
-
+  public void sayHelloWorld(String name);
 }
