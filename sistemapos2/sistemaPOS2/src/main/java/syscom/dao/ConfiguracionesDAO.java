@@ -1,7 +1,7 @@
 package syscom.dao;
 /**
 *Test from Victor de la Cruz
-*Segunda modificacion
+*Collaboration Miguel Angel Hernandez
 */
 public interface ConfiguracionesDAO {
 
