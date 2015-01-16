@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+	<bean id="productoManager" class="com.syscom.webapp.services.SimpleProductoManager">
+		<property name="productos">
+			<list>
+				<ref bean="producto1" />
+				<ref bean="producto2" />				
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="personasManager" class="com.syscom.webapp.services.PersonasManagerImpl"/>
+	
+	
+	<bean id="producto1" class="com.syscom.webapp.domain.Producto">
+		<property name="descripcion" value="Lamp" />
+		<property name="precio" value="5.75" />
+	</bean>
+
+	<bean id="producto2" class="com.syscom.webapp.domain.Producto">
+		<property name="descripcion" value="Table" />
+		<property name="precio" value="75.25" />
+	</bean>
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
+	</bean>
+
+	<!-- Scans the classpath of this application for @Components to deploy as 
+		beans -->
+	<context:component-scan base-package="com.syscom.webapp.web" />
+
+	<!-- Configures the @Controller programming model -->
+	<mvc:annotation-driven />
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView"></property>
+		<property name="prefix" value="/WEB-INF/views/"></property>
+		<property name="suffix" value=".jsp"></property>
+
+	</bean>
+</beans>
