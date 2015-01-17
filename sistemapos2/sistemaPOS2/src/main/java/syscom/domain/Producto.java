@@ -1,6 +1,8 @@
 package syscom.domain;
 
-public class Producto {
+import java.io.Serializable;
+
+public class Producto implements Serializable {
 	long ID;
 	String descripcion;
 	double precioVenta;
@@ -12,6 +14,20 @@ public class Producto {
 	
 	long proveedor;
 	long almacen;
+	
+	public Producto() {
+		this.ID = (long) Math.random();
+		this.descripcion = descripcion+this.ID;
+		this.precioVenta = Math.random();
+		this.precioCompra = Math.random();
+		this.imagenProducto = "Una imagen";
+		
+		this.cantidadExistencia = Math.random();
+		this.cantidadMinima = 1;
+		
+		this.proveedor = 1;
+		this.almacen = 1;
+	}
 	
 	public long getID() {
 		return ID;
@@ -67,7 +83,4 @@ public class Producto {
 	public void setAlmacen(long almacen) {
 		this.almacen = almacen;
 	}
-	
-	
-	
 }

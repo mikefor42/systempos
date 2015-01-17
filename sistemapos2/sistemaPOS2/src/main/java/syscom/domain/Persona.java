@@ -20,6 +20,26 @@ public class Persona {
 	String email;
 	String imagen;
 	
+	
+
+	
+	public Persona () {
+		this.ID = (long) Math.random(); 
+		this.nombre = "nombr"+this.ID;
+		this.apellido = "apellido"+this.ID;
+		this.pais = "pais"+this.ID;
+		this.estado = "estado"+this.ID;
+		this.municipio = "municipio"+this.ID;
+		this.direccion = "direccion"+this.ID;
+		this.telefonoFijo =	 "telefonoFijo"+this.ID;
+		this.telefonoCelular = "telefonoCelular"+this.ID;
+		this.rfc = "rfc"+this.ID;
+		this.activo = 1;
+		this.tipo =	 0;
+		this.email = "email"+this.ID;
+		this.imagen = "imagen"+this.ID;		
+	}
+	
 	public long getID() {
 		return ID;
 	}

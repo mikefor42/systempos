@@ -8,6 +8,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+	
+	function obtenerProductoFunction() {
+		
+		$.ajax({
+			type: 'GET',
+			url:'${pageContext.servletContext.contextPath}/ventas/obtenerProducto',
+			data:$("#IDProducto").val(),
+			success: function(data) {
+				$("#descripcionDiv").html(data.split("|")[0]);
+				$("#precioVenta").val(data.split("|")[1]);				
+			}
+		});	
+	}
+
+</script>
+
 <style type="text/css">
 	@import url(http://fonts.googleapis.com/css?family=Oswald);
 	#cssmenu,
