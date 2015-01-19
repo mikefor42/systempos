@@ -16,11 +16,14 @@
 		$.ajax({
 			type: 'GET',
 			url:'${pageContext.servletContext.contextPath}/ventas/obtenerProducto',
-			data:$("#IDProducto").val(),
+			data:'idProducto='+$("#idProducto").val(),
 			success: function(data) {
 				$("#descripcionDiv").html(data.split("|")[0]);
 				$("#precioVenta").val(data.split("|")[1]);				
-			}
+			},
+			error: function(data){
+				alert(data.statusText);
+			}			
 		});	
 	}
 

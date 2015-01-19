@@ -11,6 +11,16 @@ public class DetalleDoc {
 	double total;
 	Producto productoSeleccionado;
 	
+	public DetalleDoc(){
+		 this.ID = (long) Math.random() *	 10 ;		 
+		 this.cantidad  = 3;
+		 this.precio = 20;
+		 this.iva =14;
+		 this.descuento = 10;
+		 this.subtotal = 200;
+		 this.total = 300;
+		
+	}
 	
 	
 	public Producto getProductoSeleccionado() {
@@ -23,6 +33,7 @@ public class DetalleDoc {
 		return ID;
 	}
 	public void setID(long iD) {
+		
 		ID = iD;
 	}
 	public long getIDProducto() {

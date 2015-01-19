@@ -31,8 +31,7 @@ public class ProductosDAOImpl implements ProductosDAO {
 	}
 
 	public Producto obtenerProducto(String idproducto) {
-		Producto p = new Producto();
-		p.setDescripcion("Un producto solito");
+		Producto p = new Producto();		
 		return p;
 	}
 

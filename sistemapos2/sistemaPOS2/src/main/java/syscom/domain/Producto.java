@@ -14,10 +14,10 @@ public class Producto implements Serializable {
 	
 	long proveedor;
 	long almacen;
-	
+	 
 	public Producto() {
 		this.ID = (long) Math.random();
-		this.descripcion = descripcion+this.ID;
+		this.descripcion = "descripcion"+this.ID;
 		this.precioVenta = Math.random();
 		this.precioCompra = Math.random();
 		this.imagenProducto = "Una imagen";
