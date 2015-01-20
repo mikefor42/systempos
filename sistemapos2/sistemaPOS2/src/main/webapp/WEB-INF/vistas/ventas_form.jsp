@@ -26,9 +26,12 @@
 </table>
 </div>
 <div>
-	<span class="formspan"><label>Subtotal:</label><label></label></span>
-	<span class="formspan"><label>Descuento:</label><label></label></span>
-	<span class="formspan"><label>Iva:</label><label></label></span>
-	<span class="formspan"><label>Total:</label><label></label></span>
-	<span class="formspan"><label></label><input type="button" value="Enviar datos"/></span>	
+	<form:form  modelAttribute="documento" action="${pageContext.servletContext.contextPath}/ventas/documento">
+		<span class="formspan"><label>Subtotal:</label><label></label></span>
+		<span class="formspan"><label>Descuento:</label><form:input path='descuento'/></span>
+		<span class="formspan"><label>Iva:</label><form:input path='iva'/></span>
+		<span class="formspan"><label>Total:</label><label></label></span>
+		<span class="formspan"><label></label><form:button>Enviar datos</form:button></span>
+	</form:form>
+	<h4>${mensaje}</h4>	
 </div>

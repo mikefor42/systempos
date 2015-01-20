@@ -1,6 +1,8 @@
 package syscom.domain;
 
-public class DetalleDoc {
+import java.io.Serializable;
+
+public class DetalleDoc implements Serializable {
 	long ID;
 	long IDProducto;
 	double cantidad;
@@ -12,7 +14,7 @@ public class DetalleDoc {
 	Producto productoSeleccionado;
 	
 	public DetalleDoc(){
-		 this.ID = (long) Math.random() *	 10 ;		 
+		 this.ID = (long)(Math.random() * 10000);		 
 		 this.cantidad  = 3;
 		 this.precio = 20;
 		 this.iva =14;

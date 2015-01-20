@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import syscom.dao.OperacionesDAO;
+import syscom.dao.OperacionesDAOImpl;
 import syscom.dao.PersonasDAO;
 import syscom.dao.PersonasDAOImpl;
 import syscom.dao.ProductosDAO;
@@ -32,10 +34,11 @@ import syscom.domain.Producto;
 
 @Controller
 @RequestMapping("/ventas")
-@SessionAttributes({"productos","detalleList","clientes"})
+@SessionAttributes({"productos","detalleList","clientes", "documento","detalleDoc"})
 public class VentasController {
 	PersonasDAO personasDAO = new PersonasDAOImpl();
 	ProductosDAO productosDAO = new ProductosDAOImpl();
+	OperacionesDAO operacionesDAO = new OperacionesDAOImpl();
 	
 	@RequestMapping(method=RequestMethod.GET)
 	String pantallaVentas(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -64,11 +67,6 @@ public class VentasController {
 		return "ventas-form";
 	}
 	
-	@RequestMapping("/guardar")
-	String guardarDocumento(@Valid Documento detalleDoc, BindingResult br2, Model model) {
-		System.out.println("guardar");
-		return "ventas-form";
-	}
 	
 	@RequestMapping(value="/obtenerProducto", method=RequestMethod.GET)
 	@ResponseBody
@@ -87,4 +85,13 @@ public class VentasController {
 		model.addAttribute("detalleDoc", new DetalleDoc());		
 		return "ventas-form";
 	}
+	
+	@RequestMapping(value="/documento", method=RequestMethod.POST)
+	String guardarDocumento(@Valid Documento documento, BindingResult br2, Model model) {
+		documento.setDetalle((List) model.asMap().get("detalleList"));
+		operacionesDAO.guardarDocumento(documento);
+		model.addAttribute("mensaje", "El documento se ha guardado de forma exitosa");
+		return "ventas-form";
+	}
+	
 }

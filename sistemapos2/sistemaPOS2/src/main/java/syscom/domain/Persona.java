@@ -24,7 +24,7 @@ public class Persona {
 
 	
 	public Persona () {
-		this.ID = (long) Math.random(); 
+		this.ID = (long)(Math.random() * 10000); 
 		this.nombre = "nombr"+this.ID;
 		this.apellido = "apellido"+this.ID;
 		this.pais = "pais"+this.ID;

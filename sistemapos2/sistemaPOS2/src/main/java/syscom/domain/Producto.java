@@ -16,7 +16,7 @@ public class Producto implements Serializable {
 	long almacen;
 	 
 	public Producto() {
-		this.ID = (long) Math.random();
+		this.ID = (long)(Math.random() * 10000);
 		this.descripcion = "descripcion"+this.ID;
 		this.precioVenta = Math.random();
 		this.precioCompra = Math.random();

@@ -1,9 +1,10 @@
 package syscom.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Documento {
+public class Documento implements Serializable {
 	long ID;
 	long IDCliente;
 	long IDPersonal;
