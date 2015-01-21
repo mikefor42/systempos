@@ -5,6 +5,11 @@ public class Atributo {
 	String descripcion;
 	String valor;
 	
+	public Atributo() {
+		this.ID = (long)(Math.random() * 10000);
+		this.descripcion = "descripcion"+ID;
+		this.valor = "valor"+ID;
+	}
 	public long getID() {
 		return ID;
 	}

@@ -30,4 +30,9 @@ public class OperacionesDAOImpl implements OperacionesDAO {
 		return l;
 	}
 
+	public void actualizarInventario(Producto p) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -8,11 +8,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script type="text/javascript">
 	
-	function obtenerProductoFunction() {
-		
+	function obtenerProductoFunction() {		
 		$.ajax({
 			type: 'GET',
 			url:'${pageContext.servletContext.contextPath}/ventas/obtenerProducto',
@@ -25,6 +27,12 @@
 				alert(data.statusText);
 			}			
 		});	
+	}
+	
+	function mostrarVentana(id,descripcion) {
+		$('#idTxt').val(id);
+		$('#descripcionTxt').val(descripcion);
+		$('#agregarDiv').dialog();
 	}
 
 </script>

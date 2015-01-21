@@ -8,8 +8,17 @@
 			<td>${producto.ID}</td>
 			<td>${producto.descripcion}</td>
 			<td>${producto.cantidadExistencia}</td>
-			<td><a href="${pageContext.servletContext.contextPath}/inventario/agregar?id=${producto.ID}&cantidad=10">Agregar</a></td>
+			<td><a href="#" onclick="mostrarVentana('${producto.ID}', '${producto.descripcion}');">Agregar</a></td>
 		</tr>		
 	</c:forEach>
 </table>
 
+<div id="agregarDiv" style="display: none;">
+<form action="${pageContext.servletContext.contextPath}/inventario/agregar" method="POST">
+	<input type="hidden" name="idProducto" id="idTxt"/>
+	<label>Descripción:</label><input type="text" id="descripcionTxt"/>
+	<label>Cantidad:</label><input type="text" name="cantidad"  id="cantidadTxt"/> 
+	<label>Comentario</label><input type="text" name="comentario" id="comentarioTxt" /> 
+	<input type="submit"/>
+</form>
+</div>

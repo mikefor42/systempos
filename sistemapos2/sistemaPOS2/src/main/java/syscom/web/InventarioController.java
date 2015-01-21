@@ -1,6 +1,8 @@
 package syscom.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,14 +26,24 @@ public class InventarioController {
 	@RequestMapping(method=RequestMethod.GET)
 	public String inicio(Model model){
 		model.addAttribute("inventarioList", operacionesDAO.obtenerProductos());
+		Map map = new HashMap<String, String>();
+		map.put("idProducto", "");
+		map.put("cantidad", "");
+		map.put("comentario", "");
+		model.addAttribute("agregarMap", new HashMap<String, String>());
 		return "inventario";
 	}	
 	
-	@RequestMapping(value="/agregar",method=RequestMethod.GET)
-	public String agregar(Model model, @RequestParam("id") long id, @RequestParam("cantidad") int cantidad){
+	@RequestMapping(value="/agregar")
+	public String agregar(Model model, @RequestParam Map<String,String> params){
+		
 		List<Producto> l = (List) model.asMap().get("inventarioList");
 		for(Producto p : l){
-			if(p.getID() == id) p.setCantidadExistencia(p.getCantidadExistencia()+cantidad);
+			if(p.getID() == Long.parseLong(params.get("idProducto"))) {
+				p.setCantidadExistencia(p.getCantidadExistencia()+Integer.parseInt(params.get("cantidad")));
+				p.setComentario(params.get("comentario"));
+				operacionesDAO.actualizarInventario(p);
+			}
 		}
 		return "inventario";
 	}	

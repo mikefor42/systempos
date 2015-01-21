@@ -1,6 +1,7 @@
 package syscom.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Producto implements Serializable {
@@ -16,6 +17,8 @@ public class Producto implements Serializable {
 	long proveedor;
 	long almacen;
 	
+	String comentario;
+	
 	List<Atributo> atributos;
 	 
 	public Producto() {
@@ -30,10 +33,29 @@ public class Producto implements Serializable {
 		
 		this.proveedor = 1;
 		this.almacen = 1;
+		
+		atributos = new ArrayList<Atributo>();
+		atributos.add(new Atributo());
+		atributos.add(new Atributo());
+		atributos.add(new Atributo());
+		atributos.add(new Atributo());
+		atributos.add(new Atributo());
 	}
 	
 	
 	
+	public String getComentario() {
+		return comentario;
+	}
+
+
+
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
+	}
+
+
+
 	public List<Atributo> getAtributos() {
 		return atributos;
 	}
