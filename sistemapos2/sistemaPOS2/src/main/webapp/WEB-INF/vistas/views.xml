@@ -64,6 +64,10 @@
 	<definition name="ventas-form" extends="template">
 		<put-attribute name="content" value="/WEB-INF/vistas/ventas_form.jsp"/>
 	</definition>
+	
+	<definition name="inventario" extends="template">
+		<put-attribute name="content" value="/WEB-INF/vistas/inventario_form.jsp"/>
+	</definition>
 </tiles-definitions>
 
 

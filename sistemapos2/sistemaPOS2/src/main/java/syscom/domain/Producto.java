@@ -1,6 +1,7 @@
 package syscom.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Producto implements Serializable {
 	long ID;
@@ -14,21 +15,33 @@ public class Producto implements Serializable {
 	
 	long proveedor;
 	long almacen;
+	
+	List<Atributo> atributos;
 	 
 	public Producto() {
 		this.ID = (long)(Math.random() * 10000);
 		this.descripcion = "descripcion"+this.ID;
-		this.precioVenta = Math.random();
-		this.precioCompra = Math.random();
+		this.precioVenta =(long)(Math.random() * 10000);
+		this.precioCompra = (long)(Math.random() * 10000);
 		this.imagenProducto = "Una imagen";
 		
-		this.cantidadExistencia = Math.random();
+		this.cantidadExistencia = (long)(Math.random() * 10000);
 		this.cantidadMinima = 1;
 		
 		this.proveedor = 1;
 		this.almacen = 1;
 	}
 	
+	
+	
+	public List<Atributo> getAtributos() {
+		return atributos;
+	}
+
+	public void setAtributos(List<Atributo> atributos) {
+		this.atributos = atributos;
+	}
+
 	public long getID() {
 		return ID;
 	}

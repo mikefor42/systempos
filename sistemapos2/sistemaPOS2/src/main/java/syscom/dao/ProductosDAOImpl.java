@@ -11,7 +11,6 @@ import syscom.domain.Producto;
 public class ProductosDAOImpl implements ProductosDAO {
 
 	public List<Producto> obtenerProductos() {
-		@SuppressWarnings("rawtypes")
 		List l = new ArrayList<Producto>();
 		Producto p = new Producto();
 		p.setDescripcion("Un producto");
