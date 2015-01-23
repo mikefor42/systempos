@@ -35,11 +35,11 @@ public class Producto implements Serializable {
 		this.almacen = 1;
 		
 		atributos = new ArrayList<Atributo>();
-		atributos.add(new Atributo());
-		atributos.add(new Atributo());
-		atributos.add(new Atributo());
-		atributos.add(new Atributo());
-		atributos.add(new Atributo());
+		atributos.add(new Atributo(1));
+		atributos.add(new Atributo(2));
+		atributos.add(new Atributo(3));
+		atributos.add(new Atributo(4));
+		atributos.add(new Atributo(5));
 	}
 	
 	
@@ -118,4 +118,26 @@ public class Producto implements Serializable {
 	public void setAlmacen(long almacen) {
 		this.almacen = almacen;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "Producto [ID=" + ID + ", descripcion=" + descripcion
+				+ ", precioVenta=" + precioVenta + ", precioCompra="
+				+ precioCompra + ", imagenProducto=" + imagenProducto
+				+ ", cantidadExistencia=" + cantidadExistencia
+				+ ", cantidadMinima=" + cantidadMinima + ", proveedor="
+				+ proveedor + ", almacen=" + almacen + ", comentario="
+				+ comentario + ", atributos=" + atributos + "]";
+	}
+	
+	public boolean tieneAtributo(Atributo a){
+		for(Atributo atributo : this.atributos){
+			if(atributo.getID() == a.getID()) return true;
+		} 
+		return false;
+	}
+	
+	
 }

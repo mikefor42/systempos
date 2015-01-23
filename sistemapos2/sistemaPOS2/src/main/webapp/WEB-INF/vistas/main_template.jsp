@@ -34,6 +34,8 @@
 		$('#descripcionTxt').val(descripcion);
 		$('#agregarDiv').dialog();
 	}
+	
+	var titulosTabla = "";
 
 </script>
 

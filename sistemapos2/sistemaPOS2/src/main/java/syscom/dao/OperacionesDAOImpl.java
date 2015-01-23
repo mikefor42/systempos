@@ -16,7 +16,7 @@ public class OperacionesDAOImpl implements OperacionesDAO {
 		
 	}
 
-	public Object obtenerProductos() {
+	public List<Producto> obtenerProductos() {
 		List l = new ArrayList<Producto>();
 		Producto p = new Producto();
 		p.setDescripcion("Un producto");
