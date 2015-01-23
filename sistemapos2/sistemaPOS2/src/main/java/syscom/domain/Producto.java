@@ -19,7 +19,7 @@ public class Producto implements Serializable {
 	
 	String comentario;
 	
-	List<Atributo> atributos;
+	List<AtributoProducto> atributos;
 	 
 	public Producto() {
 		this.ID = (long)(Math.random() * 10000);
@@ -34,12 +34,12 @@ public class Producto implements Serializable {
 		this.proveedor = 1;
 		this.almacen = 1;
 		
-		atributos = new ArrayList<Atributo>();
-		atributos.add(new Atributo(1));
-		atributos.add(new Atributo(2));
-		atributos.add(new Atributo(3));
-		atributos.add(new Atributo(4));
-		atributos.add(new Atributo(5));
+		atributos = new ArrayList<AtributoProducto>();
+		atributos.add(new AtributoProducto(1));
+		atributos.add(new AtributoProducto(2));
+		atributos.add(new AtributoProducto(3));
+		atributos.add(new AtributoProducto(4));
+		atributos.add(new AtributoProducto(5));
 	}
 	
 	
@@ -56,11 +56,11 @@ public class Producto implements Serializable {
 
 
 
-	public List<Atributo> getAtributos() {
+	public List<AtributoProducto> getAtributos() {
 		return atributos;
 	}
 
-	public void setAtributos(List<Atributo> atributos) {
+	public void setAtributos(List<AtributoProducto> atributos) {
 		this.atributos = atributos;
 	}
 
@@ -132,8 +132,8 @@ public class Producto implements Serializable {
 				+ comentario + ", atributos=" + atributos + "]";
 	}
 	
-	public boolean tieneAtributo(Atributo a){
-		for(Atributo atributo : this.atributos){
+	public boolean tieneAtributo(AtributoProducto a){
+		for(AtributoProducto atributo : this.atributos){
 			if(atributo.getID() == a.getID()) return true;
 		} 
 		return false;

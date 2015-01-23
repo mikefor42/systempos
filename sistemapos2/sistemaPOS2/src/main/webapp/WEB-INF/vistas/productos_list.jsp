@@ -5,7 +5,7 @@
 <table id="tabla" border="1" style='color: #808080; font-family: "Book Antiqua", "Times New Roman", Serif;font-size:10; border-left-color: #808080; border-top-color: #808080; border-right-color: #808080; border-bottom-color: #808080; margin-top: 30px;'>	
 	<tr><th>Descripcion</th>
 	<c:forEach items="${titulosList}" var="titulo">
-		<th>${titulo.label}</th>		
+		<th>${titulo.atributoRow.label}</th>		
 	</c:forEach>			
 	</tr>
 	<c:set var="titulos" value="" />

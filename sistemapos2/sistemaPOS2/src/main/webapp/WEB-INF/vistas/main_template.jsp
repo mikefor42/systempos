@@ -35,6 +35,10 @@
 		$('#agregarDiv').dialog();
 	}
 	
+	function mostrarVentanaAtributos(eldiv) {
+		$('#'+eldiv).dialog();
+	}
+	
 	var titulosTabla = "";
 
 </script>
