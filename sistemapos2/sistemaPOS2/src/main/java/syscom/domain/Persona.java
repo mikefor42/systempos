@@ -1,12 +1,22 @@
 package syscom.domain;
 
+
+
+import java.util.Date;
+
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Persona {
 	public static final int CLIENTE = 1;
 	public static final int PROVEEDOR = 2;
 	public static final int EMPLEADO = 3;
 	
 	long ID; 
+	@NotEmpty
 	String nombre;
+	@NotNull
 	String apellido;
 	String pais;
 	String estado;
@@ -19,9 +29,8 @@ public class Persona {
 	int tipo;
 	String email;
 	String imagen;
-	
-	
-
+	String usuario;
+	Date fecha_nac;
 	
 	public Persona () {
 		this.ID = (long)(Math.random() * 10000); 
@@ -37,7 +46,8 @@ public class Persona {
 		this.activo = 1;
 		this.tipo =	 0;
 		this.email = "email"+this.ID;
-		this.imagen = "imagen"+this.ID;		
+		this.imagen = "imagen"+this.ID;	
+		this.fecha_nac = new Date();
 	}
 	
 	public long getID() {
@@ -124,8 +134,22 @@ public class Persona {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
-	
 
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public Date getFecha_nac() {
+		return fecha_nac;
+	}
+
+	public void setFecha_nac(Date fecha_nac) {
+		this.fecha_nac = fecha_nac;
+	}
 	
 	
 }

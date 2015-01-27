@@ -7,8 +7,10 @@
 		<tr>
 			<td>${cliente.nombre}</td>
 			<td>${cliente.apellido}</td>
-			<td>${cliente.rfc}</td>
-			<td>${cliente.email}</td>
+			<td>${cliente.usuario}</td>
+			<td>${cliente.direccion}</td>
+			<td>${cliente.telefonoFijo}</td>
+			<td>${cliente.telefonoCelular}</td>
 			<td><a href="<s:url value='/clientes/editar?idCliente=${cliente.ID}'/>">Editar</a></td>
 			<td><a href="<s:url value='/clientes/borrar?idCliente=${cliente.ID}'/>">Borrar</a></td>					
 		</tr>

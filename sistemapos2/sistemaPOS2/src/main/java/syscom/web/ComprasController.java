@@ -33,21 +33,21 @@ import syscom.domain.Persona;
 import syscom.domain.Producto;
 
 @Controller
-@RequestMapping("/ventas")
+@RequestMapping("/compras")
 @SessionAttributes({"productos","detalleList","clientes", "documento","detalleDoc"})
-public class VentasController {
+public class ComprasController {
 	PersonasDAO personasDAO = new PersonasDAOImpl();
 	ProductosDAO productosDAO = new ProductosDAOImpl();
 	OperacionesDAO operacionesDAO = new OperacionesDAOImpl();
 	
 	@RequestMapping(method=RequestMethod.GET)
-	String pantallaVentas(Model model, HttpServletRequest request, HttpServletResponse response) {
+	String pantallaCompras(Model model, HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("detalleList", new ArrayList<DetalleDoc>());
 		model.addAttribute("clientes", personasDAO.obtenerClientes());
 		model.addAttribute("productos", productosDAO.obtenerProductos());		
 		model.addAttribute("documento", new Documento());				
 		model.addAttribute("detalleDoc", new DetalleDoc());
-		return "ventas-form";
+		return "compras-form";
 	}  
 	
 	
@@ -64,7 +64,7 @@ public class VentasController {
 //		for(DetalleDoc d : (List<DetalleDoc>)request.getSession().getAttribute("detalle")) {
 //			System.out.println(d.getCantidad());
 //		}
-		return "ventas-form";
+		return "compras-form";
 	}
 	
 	
@@ -83,7 +83,7 @@ public class VentasController {
 		DetalleDoc d = l.get(id);
 		l.remove(d);		
 		model.addAttribute("detalleDoc", new DetalleDoc());		
-		return "ventas-form";
+		return "compras-form";
 	}
 	
 	@RequestMapping(value="/documento", method=RequestMethod.POST)
@@ -91,9 +91,7 @@ public class VentasController {
 		documento.setDetalle((List) model.asMap().get("detalleList"));
 		operacionesDAO.guardarDocumento(documento);
 		model.addAttribute("mensaje", "El documento se ha guardado de forma exitosa");
-		return "ventas-form";
+		return "compras-form";
 	}
-	
-	
 	
 }
