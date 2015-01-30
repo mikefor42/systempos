@@ -76,6 +76,18 @@
 	<definition name="almacenes_sucursales" extends="template">
 		<put-attribute name="content" value="/WEB-INF/vistas/almacenes_sucursales.jsp"/>
 	</definition>
+	
+	<definition name="cuentas-por-cobrar" extends="template">
+		<put-attribute name="content" value="/WEB-INF/vistas/cuentas_por_cobrar.jsp"/>
+	</definition>
+	
+	<definition name="cuentas-por-pagar" extends="template">
+		<put-attribute name="content" value="/WEB-INF/vistas/cuentas_por_pagar.jsp"/>
+	</definition>
+	
+	<definition name="permisos" extends="template">
+		<put-attribute name="content" value="/WEB-INF/vistas/permisos.jsp"/>
+	</definition>			
 </tiles-definitions>
 
 

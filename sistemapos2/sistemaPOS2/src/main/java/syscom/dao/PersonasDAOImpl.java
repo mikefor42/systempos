@@ -6,6 +6,7 @@ import java.util.List;
 import org.mockito.Mockito;
 import org.springframework.stereotype.Component;
 
+import syscom.domain.Permiso;
 import syscom.domain.Persona;
 
 @Component
@@ -14,16 +15,9 @@ public class PersonasDAOImpl implements PersonasDAO {
 	public List<Persona> obtenerClientes() {
 		List<Persona> personas = new ArrayList<Persona>();
 		Persona persona = new Persona();
-		persona.setNombre("Juan");
-		persona.setApellido("Perez");
-		personas.add(persona);
 		persona = new Persona();
-		persona.setNombre("Juan");
-		persona.setApellido("Perez");
 		personas.add(persona);		
 		persona = new Persona();
-		persona.setNombre("Juan");
-		persona.setApellido("Perez");
 		personas.add(persona);				
 		return personas;
 	}
@@ -34,11 +28,7 @@ public class PersonasDAOImpl implements PersonasDAO {
 	}
 
 	public Persona obtenerCliente(String idCliente) {
-		// TODO Auto-generated method stub
-		Persona p = new Persona();
-		p.setNombre("Mke");
-		p.setApellido("Hdez");
-		return p;
+		return new Persona();
 	}
 
 	public void editarCliente(Persona cliente) {
@@ -64,16 +54,10 @@ public class PersonasDAOImpl implements PersonasDAO {
 	public List<Persona> obtenerPersonalList() {
 		List<Persona> personas = new ArrayList<Persona>();
 		Persona persona = new Persona();
-		persona.setNombre("Juan");
-		persona.setApellido("Perez");
 		personas.add(persona);
 		persona = new Persona();
-		persona.setNombre("Juan");
-		persona.setApellido("Perez");
 		personas.add(persona);		
 		persona = new Persona();
-		persona.setNombre("Juan");
-		persona.setApellido("Perez");
 		personas.add(persona);				
 		return personas;
 	}
@@ -84,44 +68,47 @@ public class PersonasDAOImpl implements PersonasDAO {
 	}
 
 	public Object obtenerPersonal() {
-		Persona p = new Persona();
-		p.setNombre("Mke");
-		p.setApellido("Hdez");
-		return p;
+		return new Persona();
 	}
 
 	public Object obtenerProveedores() {
 		List<Persona> personas = new ArrayList<Persona>();
-		Persona p = Mockito.mock(Persona.class);
-		p.setNombre("uno m");
+		Persona p = new Persona();		
+		personas.add(p);
+		p = new Persona();		
+		personas.add(p);
+		p = new Persona();		
 		personas.add(p);
 		return personas;
 	}
 
 	public void guardarProveedor(Persona proveedor) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	public Persona obtenerProveedor(String idproveedor) {
-		Persona p = new Persona();
-		p.setNombre("Mke");
-		p.setApellido("Hdez");
-		return p;
+		return new Persona();
 	}
 
 	public void editarProveedor(Persona proveedor) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	public void borrarProveedor(String idproveedor) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	public Persona obtenerPersonal(String idpersonal) {		
 		return new Persona();
 	}
 
+	public List<Permiso> obtenerPermisosPersonal(long id) {
+		List<Permiso> l = new ArrayList<Permiso>();
+		l.add(new Permiso());
+		l.add(new Permiso());
+		l.add(new Permiso());
+		l.add(new Permiso());
+		l.add(new Permiso());
+		return l;
+	}
 }

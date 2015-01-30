@@ -2,6 +2,7 @@ package syscom.dao;
 
 import java.util.List;
 
+import syscom.domain.Permiso;
 import syscom.domain.Persona;
 
 
@@ -36,6 +37,8 @@ public interface PersonasDAO {
 	public void editarPersonal(Persona personal);
 
 	public void borrarPersonal(String idpersonal);
+
+	public List<Permiso> obtenerPermisosPersonal(long id);
 
 
 

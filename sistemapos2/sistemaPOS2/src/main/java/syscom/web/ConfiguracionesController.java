@@ -35,10 +35,4 @@ public class ConfiguracionesController {
 	String borrar(Model model) {
 		return "almacenes_sucursales";
 	}
-	
-	
-	
-	
-	
-	
 }

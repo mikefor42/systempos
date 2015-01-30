@@ -2,6 +2,8 @@ package syscom.dao;
 
 import java.util.List;
 
+import syscom.domain.Abono;
+import syscom.domain.Cuenta;
 import syscom.domain.Documento;
 import syscom.domain.Producto;
 
@@ -13,6 +15,12 @@ public interface OperacionesDAO {
 	List<Producto> obtenerProductos();
 
 	void actualizarInventario(Producto p);
-	
-	
+
+	void abonarCuentaxCobrar(Abono abono);
+
+	List<Cuenta> obtenerCuentasxPagar();
+
+	void abonarCuentaxPagar(Abono abono);
+
+	List<Cuenta> obtenerCuentasxCobrar();
 }

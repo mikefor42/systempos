@@ -27,6 +27,8 @@ import syscom.dao.PersonasDAO;
 import syscom.dao.PersonasDAOImpl;
 import syscom.dao.ProductosDAO;
 import syscom.dao.ProductosDAOImpl;
+import syscom.domain.Abono;
+import syscom.domain.Cuenta;
 import syscom.domain.DetalleDoc;
 import syscom.domain.Documento;
 import syscom.domain.Persona;
@@ -39,6 +41,7 @@ public class ComprasController {
 	PersonasDAO personasDAO = new PersonasDAOImpl();
 	ProductosDAO productosDAO = new ProductosDAOImpl();
 	OperacionesDAO operacionesDAO = new OperacionesDAOImpl();
+	
 	
 	@RequestMapping(method=RequestMethod.GET)
 	String pantallaCompras(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -92,6 +95,19 @@ public class ComprasController {
 		operacionesDAO.guardarDocumento(documento);
 		model.addAttribute("mensaje", "El documento se ha guardado de forma exitosa");
 		return "compras-form";
+	}
+	
+	@RequestMapping(value="/cxp", method=RequestMethod.GET)
+	String cuentasxpagar(Model model) {
+		List<Cuenta> l = operacionesDAO.obtenerCuentasxPagar();
+		model.addAttribute(l);
+		return "cuentas-x-pagar";
+	}
+
+	@RequestMapping(value="/cxp", method=RequestMethod.POST)
+	String abonarcxp(Model model, @Valid Abono abono) {
+		operacionesDAO.abonarCuentaxPagar(abono);
+		return "cuentas-x-pagar";
 	}
 	
 }

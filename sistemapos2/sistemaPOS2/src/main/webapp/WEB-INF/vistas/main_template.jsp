@@ -40,6 +40,11 @@
 	}
 	
 	var titulosTabla = "";
+	
+	function editarPermisos(id){
+		$('#editarPermisosDiv').dialog();
+		$('#ID').val(id);
+	}
 
 </script>
 

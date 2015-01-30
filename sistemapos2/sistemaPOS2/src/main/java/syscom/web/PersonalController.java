@@ -1,16 +1,25 @@
 package syscom.web;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import syscom.dao.PersonasDAO;
+import syscom.domain.Permiso;
+import syscom.domain.PermisoDetalle;
 import syscom.domain.Persona;
 
 @Controller
@@ -65,5 +74,26 @@ public class PersonalController {
 	public String borrarPersonal(@RequestParam("idpersonal") String idpersonal, Model model){
 		dao.borrarPersonal(idpersonal);		
 		return "redirect:/personal/";
+	}
+	
+	@RequestMapping(value="/permisos", method=RequestMethod.GET)
+	public String obtenerPermisos(Model model, @RequestParam("id") long id) {
+		List<Permiso> l = dao.obtenerPermisosPersonal(id);
+		Permiso permiso = new Permiso();		
+		model.addAttribute("permisosList",l);
+		model.addAttribute("permiso",permiso);
+		System.out.println("Permiso antes:" + permiso.getID());
+		model.addAttribute("permisoBean",new Permiso());
+		return "permisos";
+	}
+	
+	@RequestMapping(value="/permisos", method=RequestMethod.POST)
+	public String guardarPermisos(Model model, @Valid Permiso permiso, BindingResult br) {
+		for (Iterator iterator = permiso.getCrud().iterator(); iterator.hasNext();) {
+			PermisoDetalle type = (PermisoDetalle) iterator.next();
+			System.out.print(type.toString());			
+		}
+		System.out.println("Permiso despues:" + permiso.getID());
+		return "permisos";
 	}
 }

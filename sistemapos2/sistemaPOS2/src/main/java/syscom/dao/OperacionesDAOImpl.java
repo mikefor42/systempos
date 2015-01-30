@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import syscom.domain.Abono;
+import syscom.domain.Cuenta;
 import syscom.domain.Documento;
 import syscom.domain.Producto;
 
@@ -35,4 +37,25 @@ public class OperacionesDAOImpl implements OperacionesDAO {
 		
 	}
 
+	public void abonarCuentaxCobrar(Abono abono) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public List<Cuenta> obtenerCuentasxPagar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void abonarCuentaxPagar(Abono abono) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public List<Cuenta> obtenerCuentasxCobrar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 }

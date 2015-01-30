@@ -1,20 +1,16 @@
 package syscom.web;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.mockito.Mockito;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,9 +23,10 @@ import syscom.dao.PersonasDAO;
 import syscom.dao.PersonasDAOImpl;
 import syscom.dao.ProductosDAO;
 import syscom.dao.ProductosDAOImpl;
+import syscom.domain.Abono;
+import syscom.domain.Cuenta;
 import syscom.domain.DetalleDoc;
 import syscom.domain.Documento;
-import syscom.domain.Persona;
 import syscom.domain.Producto;
 
 @Controller
@@ -49,7 +46,6 @@ public class VentasController {
 		model.addAttribute("detalleDoc", new DetalleDoc());
 		return "ventas-form";
 	}  
-	
 	
 	@RequestMapping("/agregar")
 	String agregarProducto(@Valid DetalleDoc detalleDoc, BindingResult br1, HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -94,6 +90,16 @@ public class VentasController {
 		return "ventas-form";
 	}
 	
+	@RequestMapping(value="/cxc", method=RequestMethod.GET)
+	String cuentasxcobrar(Model model) {
+		List<Cuenta> l = operacionesDAO.obtenerCuentasxCobrar();
+		model.addAttribute(l);	
+		return "cuentas-x-cobrar";
+	}
 	
-	
+	@RequestMapping(value="/cxc", method=RequestMethod.POST)
+	String abonarcxc(Model model, @Valid Abono abono) {
+		operacionesDAO.abonarCuentaxCobrar(abono);
+		return "cuentas-x-cobrar";
+	}
 }
