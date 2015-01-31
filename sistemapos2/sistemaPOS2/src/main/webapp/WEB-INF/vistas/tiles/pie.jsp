@@ -1,6 +1,5 @@
-<div id="pie">
-	<hr align="left">
-	<div>
-		<center>@Copyright Todos los derechos reservados</center>
-	</div>	
+
+<div id="clear"><br/></div>
+<div id="footer">
+	&copy;---Copyright    Syscom   2015, SPVOnline
 </div>

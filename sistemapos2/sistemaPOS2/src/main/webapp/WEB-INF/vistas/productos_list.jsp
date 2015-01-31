@@ -1,13 +1,26 @@
-<div>
+<div id="contenedor">
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<table id="tabla" border="1" style='color: #808080; font-family: "Book Antiqua", "Times New Roman", Serif;font-size:10; border-left-color: #808080; border-top-color: #808080; border-right-color: #808080; border-bottom-color: #808080; margin-top: 30px;'>	
-	<tr><th>Descripcion</th>
+
+
+
+<a href="${pageContext.servletContext.contextPath}/productos/nuevo"> <button class="nuevo">NUEVO</button></a>
+   
+<h2>Lista de productos actuales</h2>
+
+<table>	
+	<thead>
+	<tr>
+	<th>Descripcion</th>
 	<c:forEach items="${titulosList}" var="titulo">
 		<th>${titulo.atributoRow.label}</th>		
-	</c:forEach>			
+	</c:forEach>	
+	<th>Editar</th>
+	<th>Borrar</th>		
 	</tr>
+	</thead>
+	
 	<c:set var="titulos" value="" />
 	<c:forEach var="producto" items="${productos}">		
 		<tr>
@@ -22,11 +35,10 @@
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>			
-			<td><a href="<s:url value='/productos/editar?idproducto=${producto.ID}'/>">Editar</a></td>
-			<td><a href="<s:url value='/productos/borrar?idproducto=${producto.ID}'/>">Borrar</a></td>					
+			<td><a class="button" href="<s:url value='/productos/editar?idproducto=${producto.ID}'/>">Editar</a></td>
+			<td><a class="button" href="<s:url value='/productos/borrar?idproducto=${producto.ID}'/>">Borrar</a></td>					
 		</tr> 
 	</c:forEach>
-	<tr><td></td><td></td><td><a href="${pageContext.servletContext.contextPath}/productos/nuevo"><button>Nuevo</button></a></td></tr>
 </table>
 
 </div>

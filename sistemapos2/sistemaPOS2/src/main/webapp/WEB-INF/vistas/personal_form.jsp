@@ -1,8 +1,15 @@
+
+<div id="contenedor">
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
+<a class="back" href="${pageContext.servletContext.contextPath}/personal"></a>
+
 <form:form modelAttribute="personal">
 	<fieldset>
+	<legend>Nuevo trabajador</legend>
 	<span class="formspan"><label for='ID'>ID</label><form:hidden path='ID'/></span>
+	<br>
 	<span class="formspan"><label for='nombre'>Nombre</label><form:input path='nombre'/></span>
 	<span class="formspan"><label for='apellido'>Apellido</label><form:input path='apellido'/></span>
 	<span class="formspan"><label for='pais'>Pais</label><form:input path='pais'/></span>
@@ -14,6 +21,7 @@
 	<span class="formspan"><label for='rfc'>RFC</label><form:input path='rfc'/></span>
 	<span class="formspan"><label for='email'>Email</label><form:input path='email'/></span>
 	<span class="formspan"><label for='imagen'>Imagen</label><form:input path='imagen'/></span>
-	<span class="formspan"><form:button>Enviar datos</form:button></span>
+	<span class="formspan"><form:button class="enviar">Enviar datos</form:button></span>
 	</fieldset>
 </form:form>
+</div>

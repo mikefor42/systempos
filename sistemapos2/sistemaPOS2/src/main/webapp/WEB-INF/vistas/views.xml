@@ -6,87 +6,88 @@
 <tiles-definitions>
 	<definition name="template" template="/WEB-INF/vistas/main_template.jsp">
 		<put-attribute name="top" value="/WEB-INF/vistas/tiles/encabezado.jsp"/>
+				<put-attribute name="left" value="/WEB-INF/vistas/tiles/menu.jsp"/>
 		<put-attribute name="bottom" value="/WEB-INF/vistas/tiles/pie.jsp"/>
 	</definition>
 
 	<definition name="home" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/index.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/index.jsp"/>
 	</definition>
 	
 	<definition name="lista-clientes" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/clientes_list.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/clientes_list.jsp"/>
 	</definition>
 	
 	<definition name="nuevo-cliente" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/clientes_form.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/clientes_form.jsp"/>
 	</definition>
 	
 	<definition name="editar-cliente" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/clientes_form.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/clientes_form.jsp"/>
 	</definition>
 	
 		<definition name="lista-personal" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/personal_list.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/personal_list.jsp"/>
 	</definition>
 	
 	<definition name="nuevo-personal" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/personal_form.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/personal_form.jsp"/>
 	</definition>
 	
 	<definition name="editar-personal" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/personal_form.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/personal_form.jsp"/>
 	</definition>	
 	
 	<definition name="lista-proveedores" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/proveedores_list.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/proveedores_list.jsp"/>
 	</definition>
 	
 	<definition name="nuevo-proveedor" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/proveedores_form.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/proveedores_form.jsp"/>
 	</definition>
 	
 	<definition name="editar-proveedor" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/proveedores_form.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/proveedores_form.jsp"/>
 	</definition>
 	
 	<definition name="lista-productos" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/productos_list.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/productos_list.jsp"/>
 	</definition>
 	
 	<definition name="nuevo-producto" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/productos_form.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/productos_form.jsp"/>
 	</definition>
 	
 	<definition name="editar-producto" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/productos_form.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/productos_form.jsp"/>
 	</definition>
 	
 	<definition name="ventas-form" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/ventas_form.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/ventas_form.jsp"/>
 	</definition>
 	
 	<definition name="compras-form" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/compras_form.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/compras_form.jsp"/>
 	</definition>
 	
 	<definition name="inventario" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/inventario_form.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/inventario_form.jsp"/>
 	</definition>
 	
 	<definition name="almacenes_sucursales" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/almacenes_sucursales.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/almacenes_sucursales.jsp"/>
 	</definition>
 	
 	<definition name="cuentas-por-cobrar" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/cuentas_por_cobrar.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/cuentas_por_cobrar.jsp"/>
 	</definition>
 	
 	<definition name="cuentas-por-pagar" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/cuentas_por_pagar.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/cuentas_por_pagar.jsp"/>
 	</definition>
 	
 	<definition name="permisos" extends="template">
-		<put-attribute name="content" value="/WEB-INF/vistas/permisos.jsp"/>
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/permisos.jsp"/>
 	</definition>			
 </tiles-definitions>
 

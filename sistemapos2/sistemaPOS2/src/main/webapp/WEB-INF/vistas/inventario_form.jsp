@@ -1,14 +1,25 @@
+<div id="contenedor">
+
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<table border="1">	
-	<tr><th>ID</th><th>Descripcion</th><th>Cantidad Almacen</th><th>Agregar</th></tr>
+
+<h2>Lista de productos actuales</h2>
+<table>	
+	<thead>
+	<tr>
+	<th>ID</th>
+	<th>Descripcion</th>
+	<th>Cantidad Almacen</th>
+	<th>Agregar</th>
+	</tr>
+	</thead>
 	<c:forEach items="${inventarioList}" var="producto">
 		<tr>			
 			<td>${producto.ID}</td>
 			<td>${producto.descripcion}</td>
 			<td>${producto.cantidadExistencia}</td>
-			<td><a href="#" onclick="mostrarVentana('${producto.ID}', '${producto.descripcion}');">Agregar</a></td>
+			<td><a class="button" href="#" onclick="mostrarVentana('${producto.ID}', '${producto.descripcion}');">Agregar</a></td>
 		</tr>		
 	</c:forEach>
 </table>
@@ -21,4 +32,5 @@
 	<label>Comentario</label><input type="text" name="comentario" id="comentarioTxt" /> 
 	<input type="submit"/>
 </form>
+</div>
 </div>
