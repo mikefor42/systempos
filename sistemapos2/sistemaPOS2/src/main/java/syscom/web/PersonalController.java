@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
 import syscom.dao.PersonasDAO;
 import syscom.domain.Permiso;
-import syscom.domain.PermisoDetalle;
 import syscom.domain.Persona;
+import syscom.forms.PermisosForm;
 
 @Controller
 @RequestMapping("/personal")
@@ -31,7 +29,7 @@ public class PersonalController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String listarPersonal(Model model){
-		model.addAttribute("personalList",dao.obtenerPersonalList());		
+		model.addAttribute("personalList",dao.obtenerPersonalList(1));		
 		System.out.println("personal");
 		return "lista-personal";
 	}
@@ -79,21 +77,27 @@ public class PersonalController {
 	@RequestMapping(value="/permisos", method=RequestMethod.GET)
 	public String obtenerPermisos(Model model, @RequestParam("id") long id) {
 		List<Permiso> l = dao.obtenerPermisosPersonal(id);
-		Permiso permiso = new Permiso();		
-		model.addAttribute("permisosList",l);
-		model.addAttribute("permiso",permiso);
-		System.out.println("Permiso antes:" + permiso.getID());
-		model.addAttribute("permisoBean",new Permiso());
+		PermisosForm permisosForm = new PermisosForm();
+		permisosForm.setPermisosList(l);
+		permisosForm.setIDPersona(id);
+		permisosForm.setModulosMap(dao.obtenerModulos());
+		model.addAttribute("permisosForm",permisosForm);
+		return "permisos";
+	} 
+	
+	@RequestMapping(value="/permisos", method=RequestMethod.POST)
+	public String guardarPermisos(Model model, @ModelAttribute("permisosForm") PermisosForm permisosForm) {
+		List<Permiso> l = permisosForm.getPermisosList();
+		for (Iterator iterator = l.iterator(); iterator.hasNext();) {
+			Permiso type = (Permiso) iterator.next();
+			System.out.print(type.toString());			
+		}		
 		return "permisos";
 	}
 	
-	@RequestMapping(value="/permisos", method=RequestMethod.POST)
-	public String guardarPermisos(Model model, @Valid Permiso permiso, BindingResult br) {
-		for (Iterator iterator = permiso.getCrud().iterator(); iterator.hasNext();) {
-			PermisoDetalle type = (PermisoDetalle) iterator.next();
-			System.out.print(type.toString());			
-		}
-		System.out.println("Permiso despues:" + permiso.getID());
+	@RequestMapping(value="/modulos", method=RequestMethod.POST)
+	public String agregarModulo(Model model, @ModelAttribute("permisosForm") PermisosForm permisosForm) {
+		dao.agregarModulo(permisosForm.getIDPersona(), permisosForm.getIDModulo());
 		return "permisos";
 	}
 }

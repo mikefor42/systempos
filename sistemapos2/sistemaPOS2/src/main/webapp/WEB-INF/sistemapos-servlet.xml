@@ -6,14 +6,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
-
 <context:component-scan base-package="syscom"/>
-
 <mvc:annotation-driven/>
-
+<mvc:resources mapping="/resources/**" location="/resources/mytheme/" />
 
 <bean id="viewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"/>
-
 <bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 	<property name="definitions">
 		<list>
@@ -21,10 +18,28 @@
 		</list>
 	</property>
 </bean>
+<bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="com.mysql.jdbc.Driver"/> 
+	<property name="url" value="jdbc:mysql://localhost:3306/sistemapos"/>
+	<property name="username" value="root"/>
+	<property name="password" value=""/>	
+</bean>
 
+<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+	<property name="database" value="MYSQL"/>
+	<property name="showSql" value="true"/>
+</bean>
 
-<mvc:resources mapping="/resources/**" location="/resources/mytheme/" />
- 
-	<mvc:annotation-driven />
+<bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<property name="dataSource" ref="datasource"/>
+	<property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
+	<property name="persistenceUnitName" value="punit"/>
+	<property name="loadTimeWeaver">
+ 		<bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
+ 	</property>
+	
+</bean>
 
+<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 </beans>

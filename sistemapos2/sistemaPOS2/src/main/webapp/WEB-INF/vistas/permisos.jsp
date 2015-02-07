@@ -1,19 +1,30 @@
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <div>	
-	<table  border="1">
+	<form:form modelAttribute="permisosForm" action="${pageContext.servletContext.contextPath}/personal/permisos" method="POSt">
+	<table border="1">
 	<tr><th>Modulo</th><th>Crear</th><th>Leer</th><th>Actualizar</th><th>Eliminar</th></tr>
-	<c:forEach items="${permisosList}" var="permisoS" varStatus="i">
+	<c:forEach items="${permisosForm.permisosList}" var="permiso" varStatus="i">		
 		<tr>
-			<td>${permisoS.modulo}</td><td><a href="#" onclick="editarPermisos(${permisoS.ID})">Editar Permisos</a></td>
-		</tr>
+			<td>${permiso.modulo}</td>
+			<td><form:checkbox path="permisosList[${i.index}].crear"/></td>
+			<td><form:checkbox path="permisosList[${i.index}].leer"/></td>
+			<td><form:checkbox path="permisosList[${i.index}].actualizar"/></td>
+			<td><form:checkbox path="permisosList[${i.index}].eliminar"/></td>						
+		</tr>		
 	</c:forEach>
-	</table>
+	<tr><td><form:button>Enviar</form:button><td><td><a href="agregarModulo()"></a></td></tr>
+	</table>	
+	</form:form>
+</div>
 
-	<div id="editarPermisosDiv">
-		<form:form action="${pageContext.servletContext.contextPath}/personal/permisos" method="POST" modelAttribute="permiso">
-			<form:hidden path="ID"/>
-			<form:button>Enviar</form:button>
-		</form:form>					
-	</div>	
+<div>
+<form:form action="${pageContext.servletContext.contextPath}/personal/modulos" method="POST" modelAttribute="permisosForm">
+	<table>
+	<tr>		
+		<td><form:select path="IDModulo" items="${permisosForm.modulosMap.entrySet}" itemValue="key" itemLabel="value"/></td>
+		<td><form:button>Agregar</form:button></td>
+	</tr>
+	</table>
+</form:form>
 </div>

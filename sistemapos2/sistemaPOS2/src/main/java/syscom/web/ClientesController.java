@@ -1,6 +1,5 @@
 package syscom.web;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,12 +12,10 @@ import javax.validation.Valid;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,7 +41,7 @@ public class ClientesController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String listarClientes(Model model){
-		model.addAttribute("clientes",dao.obtenerClientes());		
+		model.addAttribute("clientes",dao.obtenerClientes(1));		
 		System.out.println("clientes");
 		return "lista-clientes";
 	}

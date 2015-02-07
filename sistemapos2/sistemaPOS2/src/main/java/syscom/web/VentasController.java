@@ -40,7 +40,7 @@ public class VentasController {
 	@RequestMapping(method=RequestMethod.GET)
 	String pantallaVentas(Model model, HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("detalleList", new ArrayList<DetalleDoc>());
-		model.addAttribute("clientes", personasDAO.obtenerClientes());
+		model.addAttribute("clientes", personasDAO.obtenerClientes(1));
 		model.addAttribute("productos", productosDAO.obtenerProductos());		
 		model.addAttribute("documento", new Documento());				
 		model.addAttribute("detalleDoc", new DetalleDoc());

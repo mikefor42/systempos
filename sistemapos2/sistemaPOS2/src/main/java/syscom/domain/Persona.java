@@ -4,19 +4,27 @@ package syscom.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+@Entity
+@Table(name="personas")
 public class Persona {
 	public static final int CLIENTE = 1;
 	public static final int PROVEEDOR = 2;
 	public static final int EMPLEADO = 3;
 	
+	@Id
+	@Column(name="ID_Persona")	
 	long ID; 
-	@NotEmpty
 	String nombre;
-	@NotNull
 	String apellido;
 	String pais;
 	String estado;
@@ -30,6 +38,7 @@ public class Persona {
 	String email;
 	String imagen;
 	String usuario;
+	@Temporal(TemporalType.DATE)
 	Date fecha_nac;
 	
 	public Persona () {

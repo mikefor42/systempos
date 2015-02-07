@@ -22,7 +22,7 @@ public class ProveedoresController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String listarProveedores(Model model){
-		model.addAttribute("proveedores",dao.obtenerProveedores());		
+		model.addAttribute("proveedores",dao.obtenerProveedores(1));		
 		System.out.println("proveedores");
 		return "lista-proveedores";
 	}

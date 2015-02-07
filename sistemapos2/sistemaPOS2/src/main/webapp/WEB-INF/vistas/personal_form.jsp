@@ -10,7 +10,7 @@
 	<legend>Nuevo trabajador</legend>
 	<span class="formspan"><label for='ID'>ID</label><form:hidden path='ID'/></span>
 	<br>
-	<span class="formspan"><label for='nombre'>Nombre</label><form:input path='nombre'/></span>
+	<span><label for='nombre'>Nombre</label><form:input path='nombre'/></span>
 	<span class="formspan"><label for='apellido'>Apellido</label><form:input path='apellido'/></span>
 	<span class="formspan"><label for='pais'>Pais</label><form:input path='pais'/></span>
 	<span class="formspan"><label for='estado'>Estado</label><form:input path='estado'/></span>

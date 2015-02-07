@@ -41,19 +41,17 @@ public class ComprasController {
 	PersonasDAO personasDAO = new PersonasDAOImpl();
 	ProductosDAO productosDAO = new ProductosDAOImpl();
 	OperacionesDAO operacionesDAO = new OperacionesDAOImpl();
-	
-	
+		
 	@RequestMapping(method=RequestMethod.GET)
 	String pantallaCompras(Model model, HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("detalleList", new ArrayList<DetalleDoc>());
-		model.addAttribute("clientes", personasDAO.obtenerClientes());
+		model.addAttribute("clientes", personasDAO.obtenerClientes(1));
 		model.addAttribute("productos", productosDAO.obtenerProductos());		
 		model.addAttribute("documento", new Documento());				
 		model.addAttribute("detalleDoc", new DetalleDoc());
 		return "compras-form";
 	}  
-	
-	
+		
 	@RequestMapping("/agregar")
 	String agregarProducto(@Valid DetalleDoc detalleDoc, BindingResult br1, HttpServletRequest request, HttpServletResponse response, Model model) {
 		
