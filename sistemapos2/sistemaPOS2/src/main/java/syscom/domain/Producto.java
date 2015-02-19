@@ -4,22 +4,46 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.SessionScoped;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name="productos")
 public class Producto implements Serializable {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="ID_Producto")
 	long ID;
 	String descripcion;
 	double precioVenta;
 	double precioCompra;
 	String imagenProducto;
 	
+	@Transient
 	double cantidadExistencia;
+	@Transient
 	double cantidadMinima;
 	
+	@Transient
 	long proveedor;
+	@Transient
 	long almacen;
 	
+	@Transient
 	String comentario;
 	
-	List<AtributoProducto> atributos;
+	@Transient
+	List<Atributo> atributos;
 	 
 	public Producto() {
 		this.ID = (long)(Math.random() * 10000);
@@ -34,12 +58,14 @@ public class Producto implements Serializable {
 		this.proveedor = 1;
 		this.almacen = 1;
 		
-		atributos = new ArrayList<AtributoProducto>();
-		atributos.add(new AtributoProducto(1));
-		atributos.add(new AtributoProducto(2));
-		atributos.add(new AtributoProducto(3));
-		atributos.add(new AtributoProducto(4));
-		atributos.add(new AtributoProducto(5));
+		this.ID = 0;
+//		
+//		atributos = new ArrayList<AtributoProducto>();
+//		atributos.add(new AtributoProducto(1));
+//		atributos.add(new AtributoProducto(2));
+//		atributos.add(new AtributoProducto(3));
+//		atributos.add(new AtributoProducto(4));
+//		atributos.add(new AtributoProducto(5));
 	}
 	
 	
@@ -56,11 +82,11 @@ public class Producto implements Serializable {
 
 
 
-	public List<AtributoProducto> getAtributos() {
+	public List<Atributo> getAtributos() {
 		return atributos;
 	}
 
-	public void setAtributos(List<AtributoProducto> atributos) {
+	public void setAtributos(List<Atributo> atributos) {
 		this.atributos = atributos;
 	}
 
@@ -133,7 +159,7 @@ public class Producto implements Serializable {
 	}
 	
 	public boolean tieneAtributo(AtributoProducto a){
-		for(AtributoProducto atributo : this.atributos){
+		for(Atributo atributo : this.atributos){
 			if(atributo.getID() == a.getID()) return true;
 		} 
 		return false;

@@ -1,6 +1,9 @@
 <div id="contenedor">
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
+<script type="text/javascript">
+	$('#titulo').text('Gestión de proveedores');
+</script>
 
 <a href="${pageContext.servletContext.contextPath}/proveedores/nuevo"> <button class="nuevo">NUEVO</button></a>
    
@@ -27,5 +30,5 @@
 		</tr>
 	</c:forEach>
 </table>
-
+<td><a class="button" href="<s:url value='/proveedores/imprimir'/>">Reporte de proveedores</a></td>
 </div>

@@ -1,6 +1,8 @@
 package syscom.domain;
 
-public class AtributoRow {
+import java.io.Serializable;
+
+public class AtributoRow implements Serializable {
 	long ID;
 	String descripcion;
 	String label;

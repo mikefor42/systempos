@@ -1,20 +1,17 @@
 package syscom.web;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.mockito.Mockito;
-import org.springframework.http.HttpRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,30 +19,29 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import syscom.dao.OperacionesDAO;
-import syscom.dao.OperacionesDAOImpl;
 import syscom.dao.PersonasDAO;
-import syscom.dao.PersonasDAOImpl;
 import syscom.dao.ProductosDAO;
-import syscom.dao.ProductosDAOImpl;
 import syscom.domain.Abono;
 import syscom.domain.Cuenta;
 import syscom.domain.DetalleDoc;
 import syscom.domain.Documento;
-import syscom.domain.Persona;
 import syscom.domain.Producto;
 
 @Controller
 @RequestMapping("/compras")
 @SessionAttributes({"productos","detalleList","clientes", "documento","detalleDoc"})
 public class ComprasController {
-	PersonasDAO personasDAO = new PersonasDAOImpl();
-	ProductosDAO productosDAO = new ProductosDAOImpl();
-	OperacionesDAO operacionesDAO = new OperacionesDAOImpl();
+	@Autowired
+	PersonasDAO personasDAO;
+	@Autowired
+	ProductosDAO productosDAO;
+	@Autowired
+	OperacionesDAO operacionesDAO;
 		
 	@RequestMapping(method=RequestMethod.GET)
 	String pantallaCompras(Model model, HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("detalleList", new ArrayList<DetalleDoc>());
-		model.addAttribute("clientes", personasDAO.obtenerClientes(1));
+		model.addAttribute("clientes", personasDAO.obtenerClientes());
 		model.addAttribute("productos", productosDAO.obtenerProductos());		
 		model.addAttribute("documento", new Documento());				
 		model.addAttribute("detalleDoc", new DetalleDoc());

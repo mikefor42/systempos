@@ -1,7 +1,13 @@
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<script type="text/javascript">
+	$('#titulo').text('Configuraciones');
+</script>
 <div>	
+
 	<form:form modelAttribute="permisosForm" action="${pageContext.servletContext.contextPath}/personal/permisos" method="POSt">
+	<label>Usuario: </label>   <input type="text"/><br>
+	<label>Password:  </label> <input type="text"/><br>
 	<table border="1">
 	<tr><th>Modulo</th><th>Crear</th><th>Leer</th><th>Actualizar</th><th>Eliminar</th></tr>
 	<c:forEach items="${permisosForm.permisosList}" var="permiso" varStatus="i">		

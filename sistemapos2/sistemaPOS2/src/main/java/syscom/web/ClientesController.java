@@ -41,7 +41,7 @@ public class ClientesController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String listarClientes(Model model){
-		model.addAttribute("clientes",dao.obtenerClientes(1));		
+		model.addAttribute("clientes",dao.obtenerClientes());		
 		System.out.println("clientes");
 		return "lista-clientes";
 	}
@@ -63,14 +63,14 @@ public class ClientesController {
 	}
 	
 	@RequestMapping(value="/editar", method=RequestMethod.GET)
-	public String editarCliente(@RequestParam(value="idCliente", required=true) String idCliente, Model model){
+	public String editarCliente(@RequestParam(value="idCliente", required=true) long idCliente, Model model){
 		Persona p = dao.obtenerCliente(idCliente);
 		model.addAttribute("cliente", p);
 		return "editar-cliente";
 	}
 	
 	@RequestMapping(value="/editar", method=RequestMethod.POST)
-	public String editarCliente(@Valid Persona cliente, BindingResult br){
+	public String editarCliente(@ModelAttribute("cliente") @Valid Persona cliente, BindingResult br){
 		if(br.hasErrors()){
 			return "editar-cliente";
 		}		
@@ -79,7 +79,7 @@ public class ClientesController {
 	}
 	
 	@RequestMapping(value="/borrar", method=RequestMethod.GET)
-	public String borrarCliente(@RequestParam("idCliente") String idCliente, Model model){
+	public String borrarCliente(@RequestParam("idCliente") long idCliente, Model model){
 		dao.borrarCliente(idCliente);		
 		return "redirect:/clientes/";
 	}

@@ -1,6 +1,9 @@
 <div id="contenedor">
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<script type="text/javascript">
+	$('#titulo').text('Gestión de productos');
+</script>
 
 <a class="back" href="${pageContext.servletContext.contextPath}/productos"></a>
 

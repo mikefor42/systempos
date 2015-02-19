@@ -2,6 +2,9 @@
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<script type="text/javascript">
+	$('#titulo').text('Gestión de productos');
+</script>
 
 
 

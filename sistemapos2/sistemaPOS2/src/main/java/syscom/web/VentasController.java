@@ -2,12 +2,14 @@ package syscom.web;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,11 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import syscom.dao.OperacionesDAO;
-import syscom.dao.OperacionesDAOImpl;
 import syscom.dao.PersonasDAO;
-import syscom.dao.PersonasDAOImpl;
 import syscom.dao.ProductosDAO;
-import syscom.dao.ProductosDAOImpl;
 import syscom.domain.Abono;
 import syscom.domain.Cuenta;
 import syscom.domain.DetalleDoc;
@@ -33,40 +32,61 @@ import syscom.domain.Producto;
 @RequestMapping("/ventas")
 @SessionAttributes({"productos","detalleList","clientes", "documento","detalleDoc"})
 public class VentasController {
-	PersonasDAO personasDAO = new PersonasDAOImpl();
-	ProductosDAO productosDAO = new ProductosDAOImpl();
-	OperacionesDAO operacionesDAO = new OperacionesDAOImpl();
+	@Autowired
+	PersonasDAO personasDAO;
+	@Autowired
+	ProductosDAO productosDAO;
+	@Autowired
+	OperacionesDAO operacionesDAO;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	String pantallaVentas(Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String pantallaVentas(Model model, HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("detalleList", new ArrayList<DetalleDoc>());
-		model.addAttribute("clientes", personasDAO.obtenerClientes(1));
-		model.addAttribute("productos", productosDAO.obtenerProductos());		
-		model.addAttribute("documento", new Documento());				
-		model.addAttribute("detalleDoc", new DetalleDoc());
+		model.addAttribute("clientes", personasDAO.obtenerClientes());
+		model.addAttribute("productos", productosDAO.obtenerProductos());	
+		Documento d =  new Documento();
+		d.setDetalle(new DetalleDoc());
+		model.addAttribute("documento",d);				
 		return "ventas-form";
 	}  
 	
 	@RequestMapping("/agregar")
-	String agregarProducto(@Valid DetalleDoc detalleDoc, BindingResult br1, HttpServletRequest request, HttpServletResponse response, Model model) {
-		
-		Producto producto = (Producto) request.getSession().getAttribute("productoSeleccionado");		
-		detalleDoc.setProductoSeleccionado(producto);
-		List<DetalleDoc> detalleList = (List<DetalleDoc>) request.getSession().getAttribute("detalleList"); 
-		detalleList.add(detalleDoc);		
-		model.addAttribute("detalleList", detalleList);
-		
-		
-//		for(DetalleDoc d : (List<DetalleDoc>)request.getSession().getAttribute("detalle")) {
-//			System.out.println(d.getCantidad());
-//		}
+	public String agregarProducto(@Valid Documento documento, BindingResult br1, Model model) {	
+		Producto producto = productosDAO.obtenerProducto(documento.getDetalle().getIDProducto());	
+		DetalleDoc dd = documento.getDetalle();
+		DetalleDoc dd2 = new DetalleDoc();
+		dd2.setCantidad(dd.getCantidad());
+		dd2.setDescuento(dd.getDescuento());
+		dd2.setDocumento(dd.getDocumento());
+		dd2.setIDProducto(dd.getIDProducto());
+		dd2.setIva(dd.getIva());
+		dd2.setPrecio(dd.getPrecio());
+		dd2.setProductoSeleccionado(dd.getProductoSeleccionado());
+		dd2.setSubtotal(dd.getSubtotal());
+		dd2.setTotal(dd.getTotal());
+		dd2.setProductoSeleccionado(producto);
+		dd2.setTotal(dd2.getCantidad() * dd2.getPrecio());
+		((List) model.asMap().get("detalleList")).add(dd2); 
+				
+		float subtotal = 0;
+
+		for (Iterator iterator = ((List) model.asMap().get("detalleList")).iterator(); iterator.hasNext();) {
+			DetalleDoc detalleDoc2 = (DetalleDoc) iterator.next();
+			subtotal += detalleDoc2.getTotal();
+		}		
+		documento.setSubtotal(subtotal);
+		float iva = (float) (subtotal*(documento.getIva()/100));
+		subtotal = subtotal - iva;
+		float descuento = (float) (subtotal*(documento.getDescuento()/100));		
+		documento.setTotal(subtotal - descuento);
+		model.addAttribute("documento", documento);
 		return "ventas-form";
 	}
 	
 	
 	@RequestMapping(value="/obtenerProducto", method=RequestMethod.GET)
 	@ResponseBody
-	void obtenerProducto(@RequestParam("idProducto") String id, HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public void obtenerProducto(@RequestParam("idProducto") long id, HttpServletRequest request, HttpServletResponse response) throws IOException{
 		Producto p = productosDAO.obtenerProducto(id);
 		request.getSession().setAttribute("productoSeleccionado", p);
 		response.getWriter().write(p.getDescripcion() +"|"+ p.getPrecioVenta());
@@ -74,7 +94,7 @@ public class VentasController {
 	}
 	   
 	@RequestMapping("/quitar")
-	String quitarProducto(Model model, @RequestParam("id") int id, HttpServletRequest request, HttpServletResponse response) {
+	public String quitarProducto(Model model, @RequestParam("id") int id, HttpServletRequest request, HttpServletResponse response) {
 		List<DetalleDoc> l = (List) request.getSession().getAttribute("detalleList");
 		DetalleDoc d = l.get(id);
 		l.remove(d);		
@@ -83,23 +103,28 @@ public class VentasController {
 	}
 	
 	@RequestMapping(value="/documento", method=RequestMethod.POST)
-	String guardarDocumento(@Valid Documento documento, BindingResult br2, Model model) {
-		documento.setDetalle((List) model.asMap().get("detalleList"));
-		operacionesDAO.guardarDocumento(documento);
+	public String guardarDocumento(@Valid Documento documento, BindingResult br2, Model model) {
+		documento.setDetalleList((List) model.asMap().get("detalleList"));
+		//operacionesDAO.guardarDocumento(documento);
 		model.addAttribute("mensaje", "El documento se ha guardado de forma exitosa");
 		return "ventas-form";
 	}
 	
 	@RequestMapping(value="/cxc", method=RequestMethod.GET)
-	String cuentasxcobrar(Model model) {
+	public String cuentasxcobrar(Model model) {
 		List<Cuenta> l = operacionesDAO.obtenerCuentasxCobrar();
 		model.addAttribute(l);	
 		return "cuentas-x-cobrar";
 	}
 	
 	@RequestMapping(value="/cxc", method=RequestMethod.POST)
-	String abonarcxc(Model model, @Valid Abono abono) {
+	public String abonarcxc(Model model, @Valid Abono abono) {
 		operacionesDAO.abonarCuentaxCobrar(abono);
 		return "cuentas-x-cobrar";
 	}
+	
+	@RequestMapping(value="/productos", method=RequestMethod.GET)
+	@ResponseBody List obtenerProductos() {
+		return productosDAO.obtenerProductos();
+	}	
 }

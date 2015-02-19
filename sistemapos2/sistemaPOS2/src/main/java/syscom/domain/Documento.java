@@ -4,9 +4,20 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="documentos")
 public class Documento implements Serializable {
-	long ID;
-	long IDCliente;
+	@Id
+	@Column(name="ID_Factura")
+	long ID;	
+	long IDCliente;  
 	long IDPersonal;
 	Date fecha;
 	int status;
@@ -16,15 +27,48 @@ public class Documento implements Serializable {
 	int numDocumento;
 	int tipo;
 	double descuento;
-	List detalle;
-	
-	
-	public List getDetalle() {
+	DetalleDoc detalle;
+	public DetalleDoc getDetalle() {
 		return detalle;
 	}
-	public void setDetalle(List detalle) {
+
+
+
+	public void setDetalle(DetalleDoc detalle) {
 		this.detalle = detalle;
 	}
+	@OneToMany(targetEntity=DetalleDoc.class, mappedBy="documento", cascade={CascadeType.PERSIST})
+	List<DetalleDoc> detalleList;
+	
+	public Documento() {
+//		super();
+//		ID = (long)(Math.random() * 10000); 
+//		IDCliente = ID;
+//		IDPersonal = ID;
+//		this.fecha = new Date();
+//		this.status = 1;
+//		this.subtotal = 100;
+//		this.iva = 15;
+//		this.total = 115;
+//		this.numDocumento = (int) ID;
+//		this.tipo = 1;
+//		this.descuento = 10;		
+	}
+
+	
+	
+	public List<DetalleDoc> getDetalleList() {
+		return detalleList;
+	}
+
+
+
+	public void setDetalleList(List<DetalleDoc> detalleList) {
+		this.detalleList = detalleList;
+	}
+
+
+
 	public long getID() {
 		return ID;
 	}

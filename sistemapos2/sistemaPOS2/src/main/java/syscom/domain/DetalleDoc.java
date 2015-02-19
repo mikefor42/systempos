@@ -2,7 +2,16 @@ package syscom.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="detalledocumentos")
+@PrimaryKeyJoinColumn(name="ID")
 public class DetalleDoc implements Serializable {
+	@Id
 	long ID;
 	long IDProducto;
 	double cantidad;
@@ -12,19 +21,38 @@ public class DetalleDoc implements Serializable {
 	double subtotal;
 	double total;
 	Producto productoSeleccionado;
+	Documento documento;
+	
+	
 	
 	public DetalleDoc(){
-		 this.ID = (long)(Math.random() * 10000);		 
-		 this.cantidad  = 3;
-		 this.precio = 20;
-		 this.iva =14;
-		 this.descuento = 10;
-		 this.subtotal = 200;
-		 this.total = 300;
+//		 this.ID = (long)(Math.random() * 10000);		 
+//		 this.cantidad  = 3;
+//		 this.precio = 20;
+//		 this.iva =14;
+//		 this.descuento = 10;
+//		 this.subtotal = 200;
+//		 this.total = 300;
 		
 	}
 	
 	
+	
+	
+	public Documento getDocumento() {
+		return documento;
+	}
+
+
+
+
+	public void setDocumento(Documento documento) {
+		this.documento = documento;
+	}
+
+
+
+
 	public Producto getProductoSeleccionado() {
 		return productoSeleccionado;
 	}

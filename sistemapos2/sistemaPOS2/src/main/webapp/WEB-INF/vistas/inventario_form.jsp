@@ -2,6 +2,9 @@
 
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<script type="text/javascript">
+	$('#titulo').text('Inventario');
+</script>
 
 
 <h2>Lista de productos actuales</h2>

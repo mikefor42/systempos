@@ -2,6 +2,10 @@
 
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
+<script type="text/javascript">
+	$('#titulo').text('Almacenes y Sucursales');
+</script>
+
 
 	<h2>Almacenes</h2>
 	<table>

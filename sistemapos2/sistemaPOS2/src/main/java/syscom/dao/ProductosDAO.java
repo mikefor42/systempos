@@ -10,7 +10,7 @@ public interface ProductosDAO {
 
 	void guardarProducto(Producto producto);
 
-	Producto obtenerProducto(String idproducto);
+	Producto obtenerProducto(long idproducto);
 
 	void editarProducto(Producto producto);
 

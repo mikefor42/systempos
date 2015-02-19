@@ -1,6 +1,10 @@
 <div id="contenedor">
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<script type="text/javascript">
+	$('#titulo').text('Compras');
+</script>
+
 <form:form modelAttribute="detalleDoc" action="${pageContext.servletContext.contextPath}/compras/agregar" >
 	<fieldset>		
 	<legend>Compras</legend>

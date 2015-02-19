@@ -3,7 +3,12 @@ package syscom.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import syscom.domain.Abono;
 import syscom.domain.Cuenta;
@@ -11,11 +16,27 @@ import syscom.domain.Documento;
 import syscom.domain.Producto;
 
 @Component
+@Repository("operacionesDAO") 
+@Transactional
 public class OperacionesDAOImpl implements OperacionesDAO {
 
+	@PersistenceContext
+	EntityManager em;
+	
+	public void setEm(EntityManager em) {
+		this.em = em;
+	}
+	
+	
+	
+	public EntityManager getEm() {
+		return em;
+	}
+
+
+
 	public void guardarDocumento(Documento documento) {
-		
-		
+		em.persist(documento);		
 	}
 
 	public List<Producto> obtenerProductos() {

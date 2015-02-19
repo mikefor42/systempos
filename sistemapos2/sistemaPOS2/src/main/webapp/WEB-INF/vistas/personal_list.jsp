@@ -1,7 +1,9 @@
 <div id="contenedor">
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
-
+<script type="text/javascript">
+	$('#titulo').text('Gestión de personal');
+</script>
 
 
 <a href="${pageContext.servletContext.contextPath}/personal/nuevo"> <button class="nuevo">NUEVO</button></a>
@@ -26,9 +28,10 @@
 			<td>${personal.rfc}</td>
 			<td>${personal.email}</td>
 			<td><a class="button" href="<s:url value='/personal/editar?idpersonal=${personal.ID}'/>">Editar</a></td>
-			<td><a class="button" href="<s:url value='/personal/borrar?idpersonal=${personal.ID}'/>">Borrar</a></td>					
+			<td><a class="button" href="<s:url value='/personal/borrar?idpersonal=${personal.ID}'/>">Borrar</a></td>
+			<td><a class="button" href="<s:url value='/personal/permisos?id=${personal.ID}'/>">Configuración</a></td>					
 		</tr>
 	</c:forEach>
 </table>
-
+<td><a class="button" href="<s:url value='/personal/imprimir'/>">Reporte de personal</a></td>
 </div>

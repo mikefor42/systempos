@@ -10,9 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="personas")
@@ -23,18 +23,22 @@ public class Persona {
 	
 	@Id
 	@Column(name="ID_Persona")	
-	long ID; 
+	long ID;		
+	@Size(min=1,max=250,message="Introduzca un nombre valido")
 	String nombre;
+	@Size(min=1,max=250,message="Introduzca un apellido valido")
 	String apellido;
 	String pais;
 	String estado;
 	String municipio;
 	String direccion;
 	String telefonoFijo;
+	@Size(min=1,max=250,message="Introduzca un telefono valido")
 	String telefonoCelular;
 	String rfc;
 	int activo;
 	int tipo;
+		
 	String email;
 	String imagen;
 	String usuario;
@@ -42,21 +46,23 @@ public class Persona {
 	Date fecha_nac;
 	
 	public Persona () {
-		this.ID = (long)(Math.random() * 10000); 
-		this.nombre = "nombr"+this.ID;
-		this.apellido = "apellido"+this.ID;
-		this.pais = "pais"+this.ID;
-		this.estado = "estado"+this.ID;
-		this.municipio = "municipio"+this.ID;
-		this.direccion = "direccion"+this.ID;
-		this.telefonoFijo =	 "telefonoFijo"+this.ID;
-		this.telefonoCelular = "telefonoCelular"+this.ID;
-		this.rfc = "rfc"+this.ID;
-		this.activo = 1;
-		this.tipo =	 0;
-		this.email = "email"+this.ID;
-		this.imagen = "imagen"+this.ID;	
-		this.fecha_nac = new Date();
+//		this.ID = (long)(Math.random() * 10000); 
+//		this.nombre = "nombr"+this.ID;
+//		this.apellido = "apellido"+this.ID;
+//		this.pais = "pais"+this.ID;
+//		this.estado = "estado"+this.ID;
+//		this.municipio = "municipio"+this.ID;
+//		this.direccion = "direccion"+this.ID;
+//		this.telefonoFijo =	 "tFijo"+this.ID;
+//		this.telefonoCelular = "tCel"+this.ID;
+//		this.rfc = "rfc"+this.ID;
+//		this.activo = 1;
+//		this.tipo =	 0;
+//		this.email = "email"+this.ID;
+//		this.imagen = "imagen"+this.ID;	
+//		this.fecha_nac = new Date();
+//		this.usuario = "usuario"+ID;
+//		this.ID = 0;
 	}
 	
 	public long getID() {

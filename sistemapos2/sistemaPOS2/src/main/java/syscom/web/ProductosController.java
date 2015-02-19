@@ -28,8 +28,8 @@ public class ProductosController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String listarProductos(Model model){
-		List<Producto> l = dao.obtenerProductos();
-		AtributoProducto a = l.get(1).getAtributos().remove(3);
+		List<Producto> l = dao.obtenerProductos();	
+		
 		Set atributos = new HashSet<AtributoProducto>();
 		for(Producto p : l) {
 			atributos.addAll(p.getAtributos());
@@ -52,16 +52,14 @@ public class ProductosController {
 		if(br.hasErrors()){
 			return "nuevo-producto";
 		}		
-		for(AtributoProducto a : producto.getAtributos()){
-			System.out.println(a);
-		}
+
 		
 		dao.guardarProducto(producto);		
 		return "redirect:/productos/";
 	}
 	
 	@RequestMapping(value="/editar", method=RequestMethod.GET)
-	public String editarProducto(@RequestParam(value="idproducto", required=true) String idproducto, Model model){
+	public String editarProducto(@RequestParam(value="idproducto", required=true) long idproducto, Model model){
 		Producto p = dao.obtenerProducto(idproducto);
 		model.addAttribute("producto", p);
 		return "editar-producto";
@@ -85,7 +83,7 @@ public class ProductosController {
 	@RequestMapping(value="/agregarAtributo", method=RequestMethod.POST)
 	public String agregarAtributo(Model model, @Valid AtributoProducto atributo) {
 		Producto p = (Producto) model.asMap().get("producto");
-		p.getAtributos().add(atributo);
+		//p.getAtributos().add(atributo);
 		return "nuevo-producto";
 	}
 }
