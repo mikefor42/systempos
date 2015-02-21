@@ -1,5 +1,7 @@
 package syscom.domain;
 
+import javax.persistence.Entity;
+
 public class Par {
 	int clave;
 	String descripcion;

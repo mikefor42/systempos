@@ -28,14 +28,15 @@ public class Producto implements Serializable {
 	double precioVenta;
 	double precioCompra;
 	String imagenProducto;
+	long ID_Grupo;
 	
 	@Transient
 	double cantidadExistencia;
 	@Transient
 	double cantidadMinima;
 	
-	@Transient
-	long proveedor;
+	
+	long id_proveedor;
 	@Transient
 	long almacen;
 	
@@ -47,7 +48,7 @@ public class Producto implements Serializable {
 	 
 	public Producto() {
 		this.ID = (long)(Math.random() * 10000);
-		this.descripcion = "descripcion"+this.ID;
+		this.descripcion = this.ID+"descripcion";
 		this.precioVenta =(long)(Math.random() * 10000);
 		this.precioCompra = (long)(Math.random() * 10000);
 		this.imagenProducto = "Una imagen";
@@ -55,7 +56,7 @@ public class Producto implements Serializable {
 		this.cantidadExistencia = (long)(Math.random() * 10000);
 		this.cantidadMinima = 1;
 		
-		this.proveedor = 1;
+		this.id_proveedor = 1;
 		this.almacen = 1;
 		
 		this.ID = 0;
@@ -132,17 +133,39 @@ public class Producto implements Serializable {
 	public void setCantidadMinima(double cantidadMinima) {
 		this.cantidadMinima = cantidadMinima;
 	}
-	public long getProveedor() {
-		return proveedor;
-	}
-	public void setProveedor(long proveedor) {
-		this.proveedor = proveedor;
-	}
+
 	public long getAlmacen() {
 		return almacen;
 	}
 	public void setAlmacen(long almacen) {
 		this.almacen = almacen;
+	}
+
+	
+	
+
+
+
+	public long getId_proveedor() {
+		return id_proveedor;
+	}
+
+
+
+	public void setId_proveedor(long id_proveedor) {
+		this.id_proveedor = id_proveedor;
+	}
+
+
+
+	public long getID_Grupo() {
+		return ID_Grupo;
+	}
+
+
+
+	public void setID_Grupo(long iD_Grupo) {
+		ID_Grupo = iD_Grupo;
 	}
 
 
@@ -154,7 +177,7 @@ public class Producto implements Serializable {
 				+ precioCompra + ", imagenProducto=" + imagenProducto
 				+ ", cantidadExistencia=" + cantidadExistencia
 				+ ", cantidadMinima=" + cantidadMinima + ", proveedor="
-				+ proveedor + ", almacen=" + almacen + ", comentario="
+				+ id_proveedor + ", almacen=" + almacen + ", comentario="
 				+ comentario + ", atributos=" + atributos + "]";
 	}
 	

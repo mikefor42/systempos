@@ -1,13 +1,24 @@
 package syscom.web;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +37,7 @@ import syscom.domain.Abono;
 import syscom.domain.Cuenta;
 import syscom.domain.DetalleDoc;
 import syscom.domain.Documento;
+import syscom.domain.Persona;
 import syscom.domain.Producto;
 
 @Controller
@@ -79,6 +91,7 @@ public class VentasController {
 		subtotal = subtotal - iva;
 		float descuento = (float) (subtotal*(documento.getDescuento()/100));		
 		documento.setTotal(subtotal - descuento);
+		documento.setDetalle(new DetalleDoc());		
 		model.addAttribute("documento", documento);
 		return "ventas-form";
 	}
@@ -103,9 +116,13 @@ public class VentasController {
 	}
 	
 	@RequestMapping(value="/documento", method=RequestMethod.POST)
-	public String guardarDocumento(@Valid Documento documento, BindingResult br2, Model model) {
+	@ResponseBody String guardarDocumento(@Valid Documento documento, BindingResult br, Model model) {
+		if(br.hasErrors()){
+			return "ventas-form";
+		}		
+		
 		documento.setDetalleList((List) model.asMap().get("detalleList"));
-		//operacionesDAO.guardarDocumento(documento);
+		operacionesDAO.guardarDocumento(documento);
 		model.addAttribute("mensaje", "El documento se ha guardado de forma exitosa");
 		return "ventas-form";
 	}
@@ -124,7 +141,23 @@ public class VentasController {
 	}
 	
 	@RequestMapping(value="/productos", method=RequestMethod.GET)
-	@ResponseBody List obtenerProductos() {
-		return productosDAO.obtenerProductos();
+	@ResponseBody List obtenerProductos(@RequestParam("texto") String texto) {
+		return productosDAO.obtenerProductos(texto);
 	}	
+	
+	@RequestMapping(value="/imprimir", method=RequestMethod.GET)	
+	public @ResponseBody void imprimir(@Valid Documento documento, BindingResult br, Model model, HttpServletResponse response) throws IOException, JRException {
+		List<DetalleDoc> l = (List<DetalleDoc>) model.asMap().get("detalleList");
+		HashMap<String, Object> parameters = new HashMap(); 
+		InputStream reportStream = new FileInputStream( "C:/Users/Syscom020/Documentos.jasper");
+		JRDataSource dataSource = new JRBeanCollectionDataSource(l, true);
+		JasperPrint print = JasperFillManager.fillReport(reportStream, parameters, dataSource);
+		response.setContentType("application/pdf");
+		String fileName = "UserReport.pdf";
+		response.setHeader("Content-Disposition", "inline; filename="+ fileName);
+		OutputStream out = response.getOutputStream();
+		JasperExportManager.exportReportToPdfStream(print, out);
+		out.flush();
+		out.close(); 		
+	}
 }

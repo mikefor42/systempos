@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.*;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +17,9 @@ public class Atributo {
 	long ID;
 	String descripcion;
 	String valor;
+	
+
+	
 
 	public long getID() {
 		return ID;
@@ -35,4 +39,5 @@ public class Atributo {
 	public void setValor(String valor) {
 		this.valor = valor;
 	}
+
 }

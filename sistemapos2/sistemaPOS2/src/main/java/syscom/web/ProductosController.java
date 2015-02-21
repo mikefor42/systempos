@@ -1,5 +1,6 @@
 package syscom.web;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,12 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import syscom.dao.PersonasDAO;
 import syscom.dao.ProductosDAO;
+import syscom.domain.Atributo;
 import syscom.domain.AtributoProducto;
 import syscom.domain.Producto;
 
@@ -24,26 +28,33 @@ import syscom.domain.Producto;
 @SessionAttributes({"producto","atributoBean"})
 public class ProductosController {
 	@Autowired
-	ProductosDAO dao;
+	ProductosDAO productosDAO;
+	@Autowired
+	PersonasDAO personasDAO;
 	
-	@RequestMapping(method=RequestMethod.GET)
+	
+	@RequestMapping( method=RequestMethod.GET)
 	public String listarProductos(Model model){
-		List<Producto> l = dao.obtenerProductos();	
+		List<Producto> l = productosDAO.obtenerProductos();	
 		
-		Set atributos = new HashSet<AtributoProducto>();
+		Set atributos = new HashSet<Atributo>();
 		for(Producto p : l) {
 			atributos.addAll(p.getAtributos());
 		}		
 		model.addAttribute("titulosList", atributos);
-		model.addAttribute("productos",l);
+		model.addAttribute("productosList",l);
 		return "lista-productos";
 	}
 	
 	@RequestMapping(value="/nuevo", method=RequestMethod.GET)
 	public String nuevoProducto(Model model){
 		Producto p = new Producto();
-		model.addAttribute("producto", p);
-		model.addAttribute("atributoBean", new AtributoProducto());
+		p.setAtributos(new ArrayList<Atributo>());
+		model.addAttribute("producto", new Producto());
+		model.addAttribute("atributo", new Atributo());
+		model.addAttribute("grupos", productosDAO.obtenerGrupos());
+		model.addAttribute("proveedores", personasDAO.obtenerProveedores());
+		model.addAttribute("accion","nuevo");
 		return "nuevo-producto";
 	}
 	
@@ -52,16 +63,29 @@ public class ProductosController {
 		if(br.hasErrors()){
 			return "nuevo-producto";
 		}		
-
 		
-		dao.guardarProducto(producto);		
+		productosDAO.guardarProducto(producto);		
 		return "redirect:/productos/";
 	}
 	
+	@RequestMapping(value="/nuevo2", method=RequestMethod.POST)
+	public String obtenerAtributos(@ModelAttribute("producto") Producto producto, BindingResult br, Model model){	
+		producto.setAtributos(productosDAO.obtenerAtributos(producto.getID_Grupo()));	
+		model.addAttribute("producto", producto);
+		model.addAttribute("atributo", new Atributo());
+		model.addAttribute("grupos", productosDAO.obtenerGrupos());
+		model.addAttribute("proveedores", personasDAO.obtenerProveedores());
+		model.addAttribute("accion","nuevo");
+		return "nuevo-producto";
+	}
+	 
 	@RequestMapping(value="/editar", method=RequestMethod.GET)
 	public String editarProducto(@RequestParam(value="idproducto", required=true) long idproducto, Model model){
-		Producto p = dao.obtenerProducto(idproducto);
+		Producto p = productosDAO.obtenerProducto(idproducto);
 		model.addAttribute("producto", p);
+		model.addAttribute("grupos", productosDAO.obtenerGrupos());
+		model.addAttribute("proveedores", personasDAO.obtenerProveedores());
+		model.addAttribute("accion","editar");
 		return "editar-producto";
 	}
 	
@@ -70,13 +94,13 @@ public class ProductosController {
 		if(br.hasErrors()){
 			return "editar-producto";
 		}		
-		dao.editarProducto(producto);		
+		productosDAO.editarProducto(producto);		
 		return "redirect:/productos/";
 	}
 	
 	@RequestMapping(value="/borrar", method=RequestMethod.GET)
 	public String borrarProducto(@RequestParam("idproducto") String idproducto, Model model){
-		dao.borrarProducto(idproducto);		
+		productosDAO.borrarProducto(idproducto);		
 		return "redirect:/productos/";
 	}
 	

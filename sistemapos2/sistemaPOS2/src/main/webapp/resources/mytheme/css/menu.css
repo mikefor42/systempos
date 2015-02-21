@@ -8,7 +8,7 @@
 
 /* FORMS*/
 form {  
-  font:100% verdana,arial,sans-serif;
+  font:120% verdana,arial,sans-serif;
   margin: 0;
   padding: 0;
   min-width: 200px;
@@ -50,13 +50,17 @@ form fieldset label:first-letter {
 }
 
 form input {
-	width:100px;  	
+	width:250px;  	
 	height:20px;   
 	margin: 10px 0 0 10px;
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	-webkit-appearance: button;	
 
+}
+
+#agregarForm input {
+	width:100px;  	
 }
 
 #documento input {

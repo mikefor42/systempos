@@ -6,40 +6,55 @@
 </script>
 
 <a class="back" href="${pageContext.servletContext.contextPath}/productos"></a>
-
-
-<form:form modelAttribute="producto">
+<form:form id="productosForm" modelAttribute="producto" action="${pageContext.servletContext.contextPath}/productos/${accion}">
 	<fieldset>
 	<legend>Nuevo Producto</legend>
-	<span class='formspan'><form:hidden path='ID'/></span>
-	<span class='formspan'><label for='descripcion'>Descripcion:</label><form:textarea path='descripcion'/></span>
-	<span class='formspan'><label for='precioVenta'>Precio de venta</label><form:input path='precioVenta'/></span>
-	<span class='formspan'><label for='precioCompra'>Precio de vompra</label><form:input path='precioCompra'/></span>
-	<span class='formspan'><label for='imagenProducto'>Imagen del producto</label><form:input path='imagenProducto'/></span>	
-	<span class='formspan'><label for='cantidadExistencia'>Cantidad en existencia</label><form:input path='cantidadExistencia'/></span>	
+	<form:hidden path='ID'/>	
+		<div class="form-group">
+	<label for='descripcion'>Descripcion:</label>
+	<form:input path='descripcion'/>
+		</div>	
+		<div class="form-group">
+	<label for='precioVenta'>Precio de venta</label>
+	<form:input path='precioVenta'/>
+		</div>	
+		<div class="form-group">
+	<label for='precioCompra'>Precio de vompra</label>
+	<form:input path='precioCompra'/>
+		</div>	
+		<div class="form-group">
+	<label for='imagenProducto'>Imagen del producto</label>
+	<form:input path='imagenProducto'/>
+		</div>			
+		<div class="form-group">
+	<label for='cantidadExistencia'>Cantidad en existencia</label>
+	<form:input path='cantidadExistencia'/>
+		</div>	
 	<br>
 	<br>
-	<span class='formspan'><label for='proveedor'>Proveedor</label><form:select items="${proveedoresList }" path='proveedor'/></span>		
+	
+		<div class="form-group">
+	<label for='proveedor'>Proveedor</label>
+	<form:select items="${proveedores}" path='id_proveedor' itemLabel="nombre" itemValue="ID"/>
+		</div>		
 	<br>
+	
+		<div class="form-group">
+	<label for='ID_Grupo'>Grupo</label>
+	<form:select items="${grupos}" path='ID_Grupo' itemLabel="descripcion" itemValue="clave" onchange="$('#productosForm').attr('action','${pageContext.servletContext.contextPath}/productos/nuevo2').submit()"/>
+		</div>		
+	<br>
+	
 	<c:forEach items="${producto.atributos}" var="atributo" varStatus="i">
-		<span class='formspan'>
-			<form:label path="atributos[${i.index}].atributoRow.label" >${producto.atributos[i.index].atributoRow.label }</form:label>
+		<div class="form-group">
+			<form:label path="atributos[${i.index}].descripcion" >${producto.atributos[i.index].descripcion }</form:label>
 			<form:input path='atributos[${i.index}].valor'/>
-		</span>	
-	</c:forEach>
-	<span class="formspan"><form:button class="enviar">Enviar datos</form:button></span>
-	<span class="formspan"><span class="formspan"><a href="#" onclick="mostrarVentanaAtributos('atrubutosDiv')">Agregar Atributo</a></span ></span>
+		</div>	
+	</c:forEach> 
+	
+		<div class="form-group">
+	<form:button class="enviar">Enviar datos</form:button>
+		</div>
 	</fieldset>
 </form:form>
-
-<div id="atrubutosDiv" style="display: none" >
-<form:form modelAttribute="atributoBean" action="${pageContext.servletContext.contextPath}/productos/agregarAtributo" method="POST"> 
-
-	<span class='formspan'><label for='atributoRow.descripcion'>Nombre:</label><form:input path='atributoRow.descripcion'/></span>
-	<span class='formspan'><label for='valor'>Valor:</label><form:input path='valor'/></span>
-	<span class='formspan'><label for='atributoRow.label'>Etiqueta:</label><form:input path='atributoRow.label'/></span>
-	<br>
-	<form:button class="enviar">Enviar datos</form:button>
-</form:form>
-</div>
 </div>

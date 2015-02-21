@@ -1,6 +1,7 @@
 package syscom.dao;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import syscom.domain.Abono;
 import syscom.domain.Cuenta;
+import syscom.domain.DetalleDoc;
 import syscom.domain.Documento;
 import syscom.domain.Producto;
 
@@ -36,7 +38,12 @@ public class OperacionesDAOImpl implements OperacionesDAO {
 
 
 	public void guardarDocumento(Documento documento) {
-		em.persist(documento);		
+		em.persist(documento);
+		
+		for (Iterator iterator = documento.getDetalleList().iterator(); iterator.hasNext();) {
+			DetalleDoc type = (DetalleDoc) iterator.next();
+			
+		}
 	}
 
 	public List<Producto> obtenerProductos() {

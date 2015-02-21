@@ -71,8 +71,7 @@
  	
  	function autocompletar(texto) {			
 	 		$.ajax({
-	 			url:"${pageContext.servletContext.contextPath}/ventas/productos",
-	 			data: {id:$("#productoTxt").val()},
+	 			url:"${pageContext.servletContext.contextPath}/ventas/productos?texto="+texto,
 	 			dataType:'json',
 	 			success:function(data){	 						
 	 				data.map(function(item){	 					
@@ -95,7 +94,7 @@
  		var subtotal = $("#subtotal").val();
  		
  		var total = descuento != 0 ? subtotal - subtotal * (descuento/100): subtotal;
- 		var total = iva != 0 ? total * (iva/100):total;
+ 		var total = iva != 0 ? total - total * (iva/100):total;
  		
  		$("#total").val(total);
  	}
