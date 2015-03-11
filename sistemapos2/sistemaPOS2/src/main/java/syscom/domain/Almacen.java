@@ -1,6 +1,8 @@
 package syscom.domain;
 
-public class Almacen {
+import java.io.Serializable;
+
+public class Almacen implements Serializable {
 	long ID;
 	String descripcion;
 	long IDSucursal;

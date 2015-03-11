@@ -1,6 +1,8 @@
 package syscom.domain;
 
-public class Sucursal {
+import java.io.Serializable;
+
+public class Sucursal implements Serializable {
 	long ID;
 	String descripcion;
 	String pais;

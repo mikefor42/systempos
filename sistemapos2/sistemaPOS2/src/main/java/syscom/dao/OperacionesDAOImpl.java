@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -29,20 +30,16 @@ public class OperacionesDAOImpl implements OperacionesDAO {
 		this.em = em;
 	}
 	
-	
-	
 	public EntityManager getEm() {
 		return em;
 	}
 
-
-
 	public void guardarDocumento(Documento documento) {
-		em.persist(documento);
-		
+		em.persist(documento);		
 		for (Iterator iterator = documento.getDetalleList().iterator(); iterator.hasNext();) {
-			DetalleDoc type = (DetalleDoc) iterator.next();
-			
+			DetalleDoc type = (DetalleDoc) iterator.next();	
+			em.persist(type);
+			em.flush();
 		}
 	}
 
@@ -61,13 +58,11 @@ public class OperacionesDAOImpl implements OperacionesDAO {
 	}
 
 	public void actualizarInventario(Producto p) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	public void abonarCuentaxCobrar(Abono abono) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	public List<Cuenta> obtenerCuentasxPagar() {
@@ -84,6 +79,9 @@ public class OperacionesDAOImpl implements OperacionesDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
+
+	public String obtenerNumeroDocumento() {
+		Query q = em.createNativeQuery("select case isnull(max(ID_Factura)) when 1  then 0001 else  max(ID_Factura)+1 end as algo from documentos");
+		return q.getSingleResult().toString();
+	}	
 }

@@ -1,6 +1,8 @@
 package syscom.domain;
 
-public class PermisoDetalle {
+import java.io.Serializable;
+
+public class PermisoDetalle implements Serializable {
 	String descripcion;
 	int valor;
 	boolean valor2;

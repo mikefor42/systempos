@@ -1,6 +1,8 @@
 package syscom.domain;
 
-public class Operacion {
+import java.io.Serializable;
+
+public class Operacion implements Serializable {
 	public static final int VENTA = 1;
 	public static final int COMPRA = 2;
 	

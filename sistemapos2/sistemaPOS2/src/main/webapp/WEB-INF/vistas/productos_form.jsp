@@ -19,7 +19,7 @@
 	<form:input path='precioVenta'/>
 		</div>	
 		<div class="form-group">
-	<label for='precioCompra'>Precio de vompra</label>
+	<label for='precioCompra'>Precio de compra</label>
 	<form:input path='precioCompra'/>
 		</div>	
 		<div class="form-group">

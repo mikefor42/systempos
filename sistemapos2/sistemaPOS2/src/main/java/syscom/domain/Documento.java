@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="documentos")
@@ -24,23 +25,18 @@ public class Documento implements Serializable {
 	double subtotal;
 	double iva;
 	double total;
-	int numDocumento;
+	String numDocumento;
 	int tipo;
 	double descuento;
-	DetalleDoc detalle;
-	public DetalleDoc getDetalle() {
-		return detalle;
-	}
-
-
-
-	public void setDetalle(DetalleDoc detalle) {
-		this.detalle = detalle;
-	}
-	@OneToMany(targetEntity=DetalleDoc.class, mappedBy="documento", cascade={CascadeType.PERSIST})
+	
+	@Transient
+	DetalleDoc detalle;		
+	
+	@Transient
 	List<DetalleDoc> detalleList;
 	
 	public Documento() {
+		this.setFecha(new Date());
 //		super();
 //		ID = (long)(Math.random() * 10000); 
 //		IDCliente = ID;
@@ -55,17 +51,39 @@ public class Documento implements Serializable {
 //		this.descuento = 10;		
 	}
 
-	
-	
+
+
+
+
+	public DetalleDoc getDetalle() {
+		return detalle;
+	}
+
+
+
+
+
+	public void setDetalle(DetalleDoc detalle) {
+		this.detalle = detalle;
+	}
+
+
+
+
+
 	public List<DetalleDoc> getDetalleList() {
 		return detalleList;
 	}
 
 
 
+
+
 	public void setDetalleList(List<DetalleDoc> detalleList) {
 		this.detalleList = detalleList;
 	}
+
+
 
 
 
@@ -117,15 +135,24 @@ public class Documento implements Serializable {
 	public void setTotal(double total) {
 		this.total = total;
 	}
-	public int getNumDocumento() {
-		return numDocumento;
-	}
-	public void setNumDocumento(int numDocumento) {
-		this.numDocumento = numDocumento;
-	}
+
 	public int getTipo() {
 		return tipo;
 	}
+	
+	
+	public String getNumDocumento() {
+		return numDocumento;
+	}
+
+
+
+	public void setNumDocumento(String numDocumento) {
+		this.numDocumento = numDocumento;
+	}
+
+
+
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
 	}
@@ -135,4 +162,5 @@ public class Documento implements Serializable {
 	public void setDescuento(double descuento) {
 		this.descuento = descuento;
 	}
+	
 }

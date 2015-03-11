@@ -20,6 +20,7 @@
 
 	 $(function() {
     	$( "#fecha_nac" ).datepicker();
+    	$( "#fecha" ).datepicker();
   	});
 	
 	function obtenerProductoFunction() {		
@@ -35,7 +36,7 @@
 				alert(data.statusText);
 			}			
 		});	
-	}
+	} 
 	
 	function mostrarVentana(id,descripcion) {
 		$('#idTxt').val(id);
@@ -69,11 +70,13 @@
 	 		}); 		
  	}
  	
- 	function autocompletar(texto) {			
-	 		$.ajax({
+ 	function autocompletar() {			
+ 			var texto = $("#buscar").val();
+	 		$.ajax({ 	 				
 	 			url:"${pageContext.servletContext.contextPath}/ventas/productos?texto="+texto,
 	 			dataType:'json',
-	 			success:function(data){	 						
+	 			success:function(data){	 		 				
+	 				$("#IDProducto").html("");
 	 				data.map(function(item){	 					
 	 					var o = $("<option value='"+item.id+"'>"+item.descripcion+"</option>")
 	 					$("#IDProducto").append(o)	 				

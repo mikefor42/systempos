@@ -1,6 +1,8 @@
 package syscom.domain;
 
-public class Permiso {
+import java.io.Serializable;
+
+public class Permiso implements Serializable {
 	long ID;
 	long IDPersonal;
 	String modulo;	

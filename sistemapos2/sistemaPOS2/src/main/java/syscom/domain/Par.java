@@ -1,8 +1,10 @@
 package syscom.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 
-public class Par {
+public class Par implements Serializable {
 	int clave;
 	String descripcion;
 	

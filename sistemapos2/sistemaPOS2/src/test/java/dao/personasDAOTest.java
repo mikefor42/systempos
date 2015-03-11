@@ -137,7 +137,7 @@ public class personasDAOTest {
 	
 	@Test
 	public void testObtenerMunicipios() {
-		Map m = personasDAO.obtenerLocalidades(1);
+		//Map m = personasDAO.obtenerLocalidades(1);
 	}
 	
 

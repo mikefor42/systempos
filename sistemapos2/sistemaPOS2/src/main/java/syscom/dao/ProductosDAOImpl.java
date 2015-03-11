@@ -127,8 +127,7 @@ public class ProductosDAOImpl implements ProductosDAO {
 	}
 
 	public List obtenerProductos(String texto) {		
-		Query q = (Query) em.createNativeQuery("select * from productos", Producto.class);
-		//q.setParameter("texto", texto);
+		Query q = (Query) em.createNativeQuery("select * from productos where descripcion like '%" + texto + "%' or ID_Producto = '" + texto + "'", Producto.class);
 		List<Producto> l = q.getResultList(); 
 		long id;
 		

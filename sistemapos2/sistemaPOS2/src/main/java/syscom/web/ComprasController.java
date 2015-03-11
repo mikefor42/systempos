@@ -67,7 +67,7 @@ public class ComprasController {
 	
 	@RequestMapping(value="/obtenerProducto", method=RequestMethod.GET)
 	@ResponseBody
-	void obtenerProducto(@RequestParam("idProducto") String id, HttpServletRequest request, HttpServletResponse response) throws IOException{
+	void obtenerProducto(@RequestParam("idProducto") long id, HttpServletRequest request, HttpServletResponse response) throws IOException{
 		Producto p = productosDAO.obtenerProducto(id);
 		request.getSession().setAttribute("productoSeleccionado", p);
 		response.getWriter().write(p.getDescripcion() +"|"+ p.getPrecioVenta());
@@ -85,7 +85,7 @@ public class ComprasController {
 	
 	@RequestMapping(value="/documento", method=RequestMethod.POST)
 	String guardarDocumento(@Valid Documento documento, BindingResult br2, Model model) {
-		documento.setDetalle((List) model.asMap().get("detalleList"));
+		documento.setDetalleList((List) model.asMap().get("detalleList"));
 		operacionesDAO.guardarDocumento(documento);
 		model.addAttribute("mensaje", "El documento se ha guardado de forma exitosa");
 		return "compras-form";

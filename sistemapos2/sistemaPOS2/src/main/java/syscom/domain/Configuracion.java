@@ -1,8 +1,9 @@
 package syscom.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Configuracion {
+public class Configuracion implements Serializable {
 	
 	String descripcion;
 	

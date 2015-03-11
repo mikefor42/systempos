@@ -2,6 +2,7 @@ package syscom.domain;
 
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,7 +17,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="personas")
-public class Persona {
+public class Persona  implements Serializable {
 	public static final int CLIENTE = 1;
 	public static final int PROVEEDOR = 2;
 	public static final int EMPLEADO = 3;

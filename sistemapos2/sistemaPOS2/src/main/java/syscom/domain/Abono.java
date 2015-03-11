@@ -1,8 +1,9 @@
 package syscom.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Abono {
+public class Abono implements Serializable {
 	long ID;
 	Date fecha;
 	double cantidad;

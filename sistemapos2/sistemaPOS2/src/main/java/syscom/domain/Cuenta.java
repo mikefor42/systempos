@@ -1,8 +1,9 @@
 package syscom.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Cuenta {
+public class Cuenta  implements Serializable {
 	long ID;
 	long IDPersona;
 	long IDDocumento;

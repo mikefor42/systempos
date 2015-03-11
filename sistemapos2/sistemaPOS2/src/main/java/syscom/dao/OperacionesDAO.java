@@ -23,4 +23,6 @@ public interface OperacionesDAO {
 	void abonarCuentaxPagar(Abono abono);
 
 	List<Cuenta> obtenerCuentasxCobrar();
+
+	String obtenerNumeroDocumento();
 }

@@ -54,11 +54,12 @@ public class VentasController {
 	@RequestMapping(method=RequestMethod.GET)
 	public String pantallaVentas(Model model, HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("detalleList", new ArrayList<DetalleDoc>());
-		model.addAttribute("clientes", personasDAO.obtenerClientes());
+		model.addAttribute("clientesList", personasDAO.obtenerClientes());
 		model.addAttribute("productos", productosDAO.obtenerProductos());	
 		Documento d =  new Documento();
+		d.setNumDocumento(operacionesDAO.obtenerNumeroDocumento());
 		d.setDetalle(new DetalleDoc());
-		model.addAttribute("documento",d);				
+		model.addAttribute("documento",d);			
 		return "ventas-form";
 	}  
 	
@@ -116,7 +117,7 @@ public class VentasController {
 	}
 	
 	@RequestMapping(value="/documento", method=RequestMethod.POST)
-	@ResponseBody String guardarDocumento(@Valid Documento documento, BindingResult br, Model model) {
+	String guardarDocumento(@Valid Documento documento, BindingResult br, Model model) {
 		if(br.hasErrors()){
 			return "ventas-form";
 		}		
@@ -124,6 +125,7 @@ public class VentasController {
 		documento.setDetalleList((List) model.asMap().get("detalleList"));
 		operacionesDAO.guardarDocumento(documento);
 		model.addAttribute("mensaje", "El documento se ha guardado de forma exitosa");
+		model.addAttribute("opciones", true);
 		return "ventas-form";
 	}
 	
@@ -141,15 +143,15 @@ public class VentasController {
 	}
 	
 	@RequestMapping(value="/productos", method=RequestMethod.GET)
-	@ResponseBody List obtenerProductos(@RequestParam("texto") String texto) {
+	@ResponseBody List obtenerProductos(@RequestParam("texto") String texto, Model model) {
 		return productosDAO.obtenerProductos(texto);
 	}	
 	
 	@RequestMapping(value="/imprimir", method=RequestMethod.GET)	
-	public @ResponseBody void imprimir(@Valid Documento documento, BindingResult br, Model model, HttpServletResponse response) throws IOException, JRException {
+	public @ResponseBody void imprimir(Model model, HttpServletResponse response) throws IOException, JRException {
 		List<DetalleDoc> l = (List<DetalleDoc>) model.asMap().get("detalleList");
 		HashMap<String, Object> parameters = new HashMap(); 
-		InputStream reportStream = new FileInputStream( "C:/Users/Syscom020/Documentos.jasper");
+		InputStream reportStream = new FileInputStream( "C:/Users/Syscom020/Documento.jasper");
 		JRDataSource dataSource = new JRBeanCollectionDataSource(l, true);
 		JasperPrint print = JasperFillManager.fillReport(reportStream, parameters, dataSource);
 		response.setContentType("application/pdf");
