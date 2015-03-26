@@ -6,19 +6,18 @@
 	$('#titulo').text('Gestión de proveedores');
 </script>
 
-<a class="back" href="${pageContext.servletContext.contextPath}/proveedores"></a>
+<a class="back" href="${pageContext.servletContext.contextPath}/proveedores">Regresar</a>
 
 <form:form modelAttribute="proveedor" role="form">
 	<fieldset>
-	<legend>Nuevo Proveedor</legend>
-	<div class="form-group"><label for='ID'>ID</label><form:hidden path='ID'/></div>
-	<br>
-	<div class="form-group"><label for='nombre'>Nombre</label><form:input path='nombre'/><form:errors path="nombre"/></div>
+	<legend>Nuevo proveedor</legend>
+	<div class="form-group"><label for='nombre'>Nombre</label><form:input path='nombre'/><form:errors path="nombre"/><form:hidden path='ID'/></div>
 	<div class="form-group"><label for='apellido'>Apellido</label><form:input path='apellido'/><form:errors path='apellido'/></div>	
 	<div class="form-group"><label for='estado'>Estado</label><form:select path="estado" onchange="cargarMunicipios()">
+		<form:option value="-- Seleccione una opcion --"/>
 		<form:options items="${estados}" itemLabel="descripcion" itemValue="clave"/>
 	</form:select></div>
-	<div class="form-group"><label for='municipio'>Municipio</label><form:select path="municipio"/></div>
+	<div class="form-group"><label for='municipio'>Municipio</label><form:select path="municipio"><form:option value="-- Seleccione una opcion --"/></form:select></div>
 	<div class="form-group"><label for='direccion'>Direccion</label><form:input path='direccion'/></div>
 	<div class="form-group"><label for='telefonoFijo'>TelefonoFijo</label><form:input path='telefonoFijo'/></div>
 	<div class="form-group"><label for='telefonoCelular'>TelefonoCelular</label><form:input path='telefonoCelular'/></div>

@@ -7,13 +7,18 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name="personas")
@@ -24,6 +29,7 @@ public class Persona  implements Serializable {
 	
 	@Id
 	@Column(name="ID_Persona")	
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	long ID;		
 	@Size(min=1,max=250,message="Introduzca un nombre valido")
 	String nombre;
@@ -45,6 +51,9 @@ public class Persona  implements Serializable {
 	String usuario;
 	@Temporal(TemporalType.DATE)
 	Date fecha_nac;
+	
+	@Transient
+	MultipartFile imageFile;
 	
 	public Persona () {
 //		this.ID = (long)(Math.random() * 10000); 
@@ -166,6 +175,16 @@ public class Persona  implements Serializable {
 	public void setFecha_nac(Date fecha_nac) {
 		this.fecha_nac = fecha_nac;
 	}
+
+	public MultipartFile getImageFile() {
+		return imageFile;
+	}
+
+	public void setImageFile(MultipartFile imageFile) {
+		this.imageFile = imageFile;
+	}
+	
+	
 	
 	
 }

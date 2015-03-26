@@ -19,6 +19,7 @@
 	<th>Email</th>
 	<th>Editar</th>
 	<th>Borrar</th>
+	<th></th>
 	</tr>
 	</thead>
 	<c:forEach var="personal" items="${personalList}">		

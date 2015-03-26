@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,7 +43,7 @@ import syscom.domain.Producto;
 
 @Controller
 @RequestMapping("/ventas")
-@SessionAttributes({"productos","detalleList","clientes", "documento","detalleDoc"})
+@SessionAttributes({"productos","detalleList","clientesList", "documento","detalleDoc", "documento"})
 public class VentasController {
 	@Autowired
 	PersonasDAO personasDAO;

@@ -4,7 +4,7 @@
 	$('#titulo').text('Cuentas por pagar');
 </script>
 	<form:form>
-		<form:select path="IDProveedor" items="${proveedoresList}" itemLabel="nombre" itemValue="ID"></form:select>		
+		<form:select path="IDProveedor" items="${proveedoresList}" itemLabel="nombre" itemValue="ID"><form:option value="-- Seleccione una opcion --"/></form:select>		
 		<table border="1"> 
 		<c:forEach items="cxpList">
 			<tr><td>Cuenta</td><a href="#">Abonar</a></tr>

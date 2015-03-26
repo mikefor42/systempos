@@ -30,30 +30,28 @@
 	<label for='cantidadExistencia'>Cantidad en existencia</label>
 	<form:input path='cantidadExistencia'/>
 		</div>	
-	<br>
-	<br>
-	
+
 		<div class="form-group">
 	<label for='proveedor'>Proveedor</label>
-	<form:select items="${proveedores}" path='id_proveedor' itemLabel="nombre" itemValue="ID"/>
+	<form:select items="${proveedores}" path='id_proveedor' itemLabel="nombre" itemValue="ID"><form:option value="-- Seleccione una opcion --"/></form:select>
 		</div>		
-	<br>
 	
 		<div class="form-group">
 	<label for='ID_Grupo'>Grupo</label>
-	<form:select items="${grupos}" path='ID_Grupo' itemLabel="descripcion" itemValue="clave" onchange="$('#productosForm').attr('action','${pageContext.servletContext.contextPath}/productos/nuevo2').submit()"/>
+	<form:select items="${grupos}" path='ID_Grupo' itemLabel="descripcion" itemValue="clave" onchange="$('#productosForm').attr('action','${pageContext.servletContext.contextPath}/productos/nuevo2').submit()"><form:option value="-- Seleccione una opcion --"/></form:select>
 		</div>		
-	<br>
 	
 	<c:forEach items="${producto.atributos}" var="atributo" varStatus="i">
 		<div class="form-group">
 			<form:label path="atributos[${i.index}].descripcion" >${producto.atributos[i.index].descripcion }</form:label>
 			<form:input path='atributos[${i.index}].valor'/>
 		</div>	
-	</c:forEach> 
-	
+	</c:forEach> 	
 		<div class="form-group">
-	<form:button class="enviar">Enviar datos</form:button>
+	<label></label>
+	<form:button class="enviar">Enviar datos</form:button>&nbsp;&nbsp;&nbsp;&nbsp; 
+	<button type="button" onclick="window.open('${pageContext.servletContext.contextPath}/productos/atributos')">Agregar Atributos</button>
+	<button type="button" onclick="window.open('${pageContext.servletContext.contextPath}/productos/grupos')">Agregar Grupos</button>
 		</div>
 	</fieldset>
 </form:form>

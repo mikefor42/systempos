@@ -1,5 +1,6 @@
 package syscom.web;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -21,17 +23,20 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import org.apache.commons.io.FileUtils;
 import org.jboss.weld.context.bound.Bound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import syscom.dao.PersonasDAO;
 import syscom.domain.Par;
@@ -63,12 +68,25 @@ public class PersonalController {
 	}
 	
 	@RequestMapping(value="/nuevo", method=RequestMethod.POST)
-	public String guardarPersonal(@ModelAttribute("personal") @Valid Persona personal, BindingResult br){
-		if(br.hasErrors()){
-			return "nuevo-personal";
-		}		
-		dao.guardarPersonal(personal);		
+	public String guardarPersonal(@ModelAttribute("personal") @Valid Persona personal, BindingResult br, HttpServletRequest request) throws IOException{
+		if(br.hasErrors()){			
+			for(ObjectError i : br.getAllErrors()) {
+				System.out.println(i.getDefaultMessage());
+			}
+			return "nuevo-personal";			
+		}
+		long id = dao.guardarPersonal(personal);
+		String imagen = guardarImagen(personal.getImageFile(), id);
+		personal.setImagen(imagen);
+		dao.editarPersonal(personal);
 		return "redirect:/personal/";
+	}
+	
+	private String guardarImagen(MultipartFile imagen, long id) throws IOException {	
+		String path = "c://imagenes/"+ id + "_imagen.jpg";
+		File file = new File(path);
+		FileUtils.writeByteArrayToFile(file, imagen.getBytes());
+		return path;
 	}
 	
 	@RequestMapping(value="/editar", method=RequestMethod.GET)

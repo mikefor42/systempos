@@ -13,6 +13,9 @@ public class Par implements Serializable {
 		this.clave = clave;
 		this.descripcion = descripcion;
 	}
+	public Par() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getClave() {
 		return clave;
 	}

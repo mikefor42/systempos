@@ -28,10 +28,8 @@ public class ProductosDAOImpl implements ProductosDAO {
 	EntityManager em;
 
 	public List<Producto> obtenerProductos() {
-
 		List<Producto> l = em.createNativeQuery("select * from productos", Producto.class).getResultList();
 		long id = 0;
-		
 		for (Iterator iterator = l.iterator(); iterator.hasNext();) {
 			Producto producto = (Producto) iterator.next();
 			id = producto.getID();
@@ -41,7 +39,6 @@ public class ProductosDAOImpl implements ProductosDAO {
 			List<Atributo> l2 = q.getResultList();			
 			producto.setAtributos(l2);			
 		}
-
 		return l;		
 	}
 
@@ -140,8 +137,33 @@ public class ProductosDAOImpl implements ProductosDAO {
 			List<Atributo> l2 = q.getResultList();			
 			producto.setAtributos(l2);			
 		}
-
 		return l;		
+	}
+
+	@Transactional
+	public void guardarAtributo(Par atributo) {
+		Query query = em.createNativeQuery("insert into atributos (id_grupo, descripcion) values(:elid,:descripcion)");
+		query.setParameter("elid", atributo.getClave());
+		query.setParameter("descripcion", atributo.getDescripcion());	
+		query.executeUpdate();
+	}
+
+	public List<Par> obtenerAllAtributos() {
+		Query q = (Query) em.createNativeQuery("select id_grupo, descripcion from atributos");
+		List<Par> l = new ArrayList<Par>();
+		for (Iterator iterator = q.getResultList().iterator(); iterator.hasNext();) {
+			Object[] obj = (Object[]) iterator.next();
+			l.add(new Par((Integer)obj[0], (String) obj[1]));
+		}	
+		return l;
+	}
+
+	@Transactional
+	public void guardarGrupo(Par grupo) {
+		Query query = em.createNativeQuery("insert into grupos	 values(:elid,:descripcion)");
+		query.setParameter("elid", grupo.getClave());
+		query.setParameter("descripcion", grupo.getDescripcion());	
+		query.executeUpdate();		
 	}
 }
 	

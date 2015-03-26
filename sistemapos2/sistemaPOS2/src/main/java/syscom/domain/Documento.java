@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="documentos")
 public class Documento implements Serializable {
@@ -20,6 +22,8 @@ public class Documento implements Serializable {
 	long ID;	
 	long IDCliente;  
 	long IDPersonal;
+	
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	Date fecha;
 	int status;
 	double subtotal;
@@ -162,5 +166,21 @@ public class Documento implements Serializable {
 	public void setDescuento(double descuento) {
 		this.descuento = descuento;
 	}
+
+
+
+
+
+	@Override
+	public String toString() {
+		return "Documento [ID=" + ID + ", IDCliente=" + IDCliente
+				+ ", IDPersonal=" + IDPersonal + ", fecha=" + fecha
+				+ ", status=" + status + ", subtotal=" + subtotal + ", iva="
+				+ iva + ", total=" + total + ", numDocumento=" + numDocumento
+				+ ", tipo=" + tipo + ", descuento=" + descuento + ", detalle="
+				+ detalle + ", detalleList=" + detalleList + "]";
+	}
+	
+	
 	
 }

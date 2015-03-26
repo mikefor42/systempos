@@ -10,7 +10,7 @@
   <a href="${pageContext.servletContext.contextPath}/clientes/nuevo"> <button class="nuevo">NUEVO</button></a>
    
 <h2>Lista de clientes actuales</h2>
-<table>	
+<table class="table table-hover">	
 <thead>	<tr>
 <th>Nombre</th>
 <th>Apellido</th>
@@ -20,7 +20,6 @@
 <th>Celular</th>
 <th>Editar</th>
 <th>Borrar</th>
-<th></th>
 </tr>
 </thead>
 	<c:forEach var="cliente" items="${clientes}">		

@@ -7,7 +7,7 @@
 	$('#titulo').text('Gestión de clientes');
 </script>
 
-<a class="back" href="${pageContext.servletContext.contextPath}/clientes"></a>
+<a class="back" href="${pageContext.servletContext.contextPath}/clientes">Regresar</a>
 
 <form:form modelAttribute="cliente" action="${accion}" role="form">
 	<fieldset>
@@ -19,6 +19,7 @@
 	</div>	
 	<div class="form-group"><label for='apellido'>Apellido</label><form:input path='apellido'/><form:errors path='apellido'/></div>		
 	<div class="form-group"><label for='estado'>Estado</label><form:select path="estado" onchange="cargarMunicipios()">
+		<form:option value="-- Seleccione una opcion --"/>
 		<form:options items="${estados}" itemLabel="descripcion" itemValue="clave"/>
 	</form:select></div>
 	<div class="form-group"><label for='municipio'>Municipio</label><form:select path="municipio"/></div>

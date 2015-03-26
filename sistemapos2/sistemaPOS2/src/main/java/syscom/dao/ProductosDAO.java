@@ -25,4 +25,10 @@ public interface ProductosDAO {
 
 	public List obtenerProductos(String texto);
 
+	public void guardarAtributo(Par atributo);
+
+	public Object obtenerAllAtributos();
+
+	public void guardarGrupo(Par grupo);
+
 }

@@ -51,7 +51,7 @@ public class ProveedoresController {
 	public String nuevoProveedor(Model model){
 		Persona p = new Persona();
 		model.addAttribute("proveedor", p);
-
+		model.addAttribute("estados", dao.obtenerEstados());
 		return "nuevo-proveedor";
 	}
 	

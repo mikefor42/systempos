@@ -28,7 +28,7 @@
 <form:form action="${pageContext.servletContext.contextPath}/personal/modulos" method="POST" modelAttribute="permisosForm">
 	<table>
 	<tr>		
-		<td><form:select path="IDModulo" items="${permisosForm.modulosMap.entrySet}" itemValue="key" itemLabel="value"/></td>
+		<td><form:select path="IDModulo" items="${permisosForm.modulosMap.entrySet}" itemValue="key" itemLabel="value"><form:option value="-- Seleccione una opcion --"/></form:select></td>
 		<td><form:button>Agregar</form:button></td>
 	</tr>
 	</table>

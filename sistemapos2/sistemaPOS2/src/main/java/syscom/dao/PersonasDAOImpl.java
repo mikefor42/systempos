@@ -42,8 +42,9 @@ public class PersonasDAOImpl implements PersonasDAO {
 		return query.getResultList();
 	}
 
+	
 	public void guardarPersona(Persona persona) {		
-		em.persist(persona);	
+		em.persist(persona);
 	}
 
 	public Persona obtenerPersona(long id) {
@@ -84,18 +85,20 @@ public class PersonasDAOImpl implements PersonasDAO {
 		return obtenerPersonas(Persona.EMPLEADO);
 	}
 
-	public void guardarPersonal(Persona personal) {
+	public long guardarPersonal(Persona personal) {
 		personal.setTipo(Persona.EMPLEADO);
 		guardarPersona(personal);
+		return personal.getID();
 	}
 
 	public List<Persona> obtenerProveedores() {
 		return obtenerPersonas(Persona.PROVEEDOR);	
 	}
 
-	public void guardarProveedor(Persona proveedor) {
+	public long guardarProveedor(Persona proveedor) {
 		proveedor.setTipo(Persona.PROVEEDOR);
-		guardarPersona(proveedor);		
+		guardarPersona(proveedor);
+		return proveedor.getID();
 	}
 
 	public Persona obtenerProveedor(long idproveedor) {
@@ -143,9 +146,10 @@ public class PersonasDAOImpl implements PersonasDAO {
 		return obtenerPersonas(Persona.CLIENTE);
 	}
 
-	public void guardarCliente(Persona cliente) {
+	public long guardarCliente(Persona cliente) {
 		cliente.setTipo(Persona.CLIENTE);
-		guardarPersona(cliente);		
+		guardarPersona(cliente);
+		return cliente.getID();
 	}
 
 	public Persona obtenerCliente(long idCliente) {		

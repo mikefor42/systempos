@@ -50,6 +50,7 @@ public class ClientesController {
 	public String nuevoCliente(Model model){
 		Persona p = new Persona();
 		model.addAttribute("cliente", p);		
+		model.addAttribute("estados", dao.obtenerEstados());
 		return "nuevo-cliente";
 	}
 	

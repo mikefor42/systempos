@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import syscom.dao.PersonasDAO;
 import syscom.dao.ProductosDAO;
 import syscom.domain.Atributo;
 import syscom.domain.AtributoProducto;
+import syscom.domain.Par;
 import syscom.domain.Producto;
 
 @Controller
@@ -31,7 +33,6 @@ public class ProductosController {
 	ProductosDAO productosDAO;
 	@Autowired
 	PersonasDAO personasDAO;
-	
 	
 	@RequestMapping( method=RequestMethod.GET)
 	public String listarProductos(Model model){
@@ -47,10 +48,10 @@ public class ProductosController {
 	}
 	
 	@RequestMapping(value="/nuevo", method=RequestMethod.GET)
-	public String nuevoProducto(Model model){
+	public String nuevoProducto(Model model){	
 		Producto p = new Producto();
 		p.setAtributos(new ArrayList<Atributo>());
-		model.addAttribute("producto", new Producto());
+		model.addAttribute("producto", p);
 		model.addAttribute("atributo", new Atributo());
 		model.addAttribute("grupos", productosDAO.obtenerGrupos());
 		model.addAttribute("proveedores", personasDAO.obtenerProveedores());
@@ -63,7 +64,7 @@ public class ProductosController {
 		if(br.hasErrors()){
 			return "nuevo-producto";
 		}		
-		
+		producto.setID(0);
 		productosDAO.guardarProducto(producto);		
 		return "redirect:/productos/";
 	}
@@ -110,4 +111,33 @@ public class ProductosController {
 		//p.getAtributos().add(atributo);
 		return "nuevo-producto";
 	}
+	
+	@RequestMapping(value="/atributos", method=RequestMethod.GET)
+	public String atributos(Model model) {
+		model.addAttribute("gruposList", productosDAO.obtenerGrupos());
+		model.addAttribute("atributo", new Par());
+		model.addAttribute("atributosList", productosDAO.obtenerAllAtributos());
+		return "atributos";
+	}
+	
+	@RequestMapping(value="/grupos", method=RequestMethod.GET)
+	public String grupos(Model model) {		
+		model.addAttribute("grupo", new Par());
+		model.addAttribute("gruposList", productosDAO.obtenerGrupos());
+		return "grupos";
+	}
+	
+	@RequestMapping(value="/nuevoAtributo", method=RequestMethod.POST)
+	public String nuevoAtributo(Model model, @Valid Par atributo, BindingResult br){
+		productosDAO.guardarAtributo(atributo);	
+		return "redirect:/productos/atributos";
+	}
+	
+	@RequestMapping(value="/nuevoGrupo", method=RequestMethod.POST)
+	public String nuevoGrupo(Model model, @Valid Par grupo, BindingResult br){
+		productosDAO.guardarGrupo(grupo);	
+		return "redirect:/productos/grupos";
+	}
+
+
 }
