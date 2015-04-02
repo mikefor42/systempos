@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.web.multipart.MultipartFile;
+
 @Entity
 @Table(name="productos")
 public class Producto implements Serializable {
@@ -27,8 +29,9 @@ public class Producto implements Serializable {
 	String descripcion;
 	double precioVenta;
 	double precioCompra;
-	String imagenProducto;
+
 	long ID_Grupo;
+	String imagen;
 	
 	@Transient
 	double cantidadExistencia;
@@ -45,13 +48,16 @@ public class Producto implements Serializable {
 	
 	@Transient
 	List<Atributo> atributos;
+	
+	@Transient
+	MultipartFile imageFile;
 	 
 	public Producto() {
 		this.ID = (long)(Math.random() * 10000);
 		this.descripcion = this.ID+"descripcion";
 		this.precioVenta =(long)(Math.random() * 10000);
 		this.precioCompra = (long)(Math.random() * 10000);
-		this.imagenProducto = "Una imagen";
+
 		
 		this.cantidadExistencia = (long)(Math.random() * 10000);
 		this.cantidadMinima = 1;
@@ -115,12 +121,7 @@ public class Producto implements Serializable {
 	public void setPrecioCompra(double precioCompra) {
 		this.precioCompra = precioCompra;
 	}
-	public String getImagenProducto() {
-		return imagenProducto;
-	}
-	public void setImagenProducto(String imagenProducto) {
-		this.imagenProducto = imagenProducto;
-	}
+
 	public double getCantidadExistencia() {
 		return cantidadExistencia;
 	}
@@ -168,13 +169,27 @@ public class Producto implements Serializable {
 		ID_Grupo = iD_Grupo;
 	}
 
+	public String getImagen() {
+		return imagen;
+	}
 
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
+	public MultipartFile getImageFile() {
+		return imageFile;
+	}
+
+	public void setImageFile(MultipartFile imageFile) {
+		this.imageFile = imageFile;
+	}
 
 	@Override
 	public String toString() {
 		return "Producto [ID=" + ID + ", descripcion=" + descripcion
 				+ ", precioVenta=" + precioVenta + ", precioCompra="
-				+ precioCompra + ", imagenProducto=" + imagenProducto
+				+ precioCompra + ", imagen=" + imagen
 				+ ", cantidadExistencia=" + cantidadExistencia
 				+ ", cantidadMinima=" + cantidadMinima + ", proveedor="
 				+ id_proveedor + ", almacen=" + almacen + ", comentario="

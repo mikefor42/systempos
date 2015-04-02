@@ -18,6 +18,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
@@ -50,6 +51,7 @@ public class Persona  implements Serializable {
 	String imagen;
 	String usuario;
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	Date fecha_nac;
 	
 	@Transient
@@ -183,6 +185,19 @@ public class Persona  implements Serializable {
 	public void setImageFile(MultipartFile imageFile) {
 		this.imageFile = imageFile;
 	}
+
+	@Override
+	public String toString() {
+		return "Persona [ID=" + ID + ", nombre=" + nombre + ", apellido="
+				+ apellido + ", pais=" + pais + ", estado=" + estado
+				+ ", municipio=" + municipio + ", direccion=" + direccion
+				+ ", telefonoFijo=" + telefonoFijo + ", telefonoCelular="
+				+ telefonoCelular + ", rfc=" + rfc + ", activo=" + activo
+				+ ", tipo=" + tipo + ", email=" + email + ", imagen=" + imagen
+				+ ", usuario=" + usuario + ", fecha_nac=" + fecha_nac
+				+ ", imageFile=" + imageFile + "]";
+	}
+	
 	
 	
 	

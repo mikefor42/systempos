@@ -43,7 +43,7 @@ import syscom.domain.Producto;
 
 @Controller
 @RequestMapping("/ventas")
-@SessionAttributes({"productos","detalleList","clientesList", "documento","detalleDoc", "documento"})
+@SessionAttributes({"productos","detalleList","clientesList", "documento","detalleDoc"})
 public class VentasController {
 	@Autowired
 	PersonasDAO personasDAO;
@@ -69,6 +69,7 @@ public class VentasController {
 		Producto producto = productosDAO.obtenerProducto(documento.getDetalle().getIDProducto());	
 		DetalleDoc dd = documento.getDetalle();
 		DetalleDoc dd2 = new DetalleDoc();
+		dd2.setNumDocumento(dd.getNumDocumento());
 		dd2.setCantidad(dd.getCantidad());
 		dd2.setDescuento(dd.getDescuento());
 		dd2.setDocumento(dd.getDocumento());

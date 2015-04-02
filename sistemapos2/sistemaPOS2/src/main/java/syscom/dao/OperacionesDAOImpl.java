@@ -20,7 +20,6 @@ import syscom.domain.Producto;
 
 @Component
 @Repository("operacionesDAO") 
-@Transactional
 public class OperacionesDAOImpl implements OperacionesDAO {
 
 	@PersistenceContext
@@ -34,12 +33,15 @@ public class OperacionesDAOImpl implements OperacionesDAO {
 		return em;
 	}
 
-	public void guardarDocumento(Documento documento) {
+	@Transactional
+	public void guardarDocumento(Documento documento, List<DetalleDoc> detalleList) {
 		em.persist(documento);		
-		for (Iterator iterator = documento.getDetalleList().iterator(); iterator.hasNext();) {
-			DetalleDoc type = (DetalleDoc) iterator.next();	
+		for (Iterator iterator = detalleList.iterator(); iterator.hasNext();) {			
+			DetalleDoc type = (DetalleDoc) iterator.next();
+			type.setNumDocumento(documento.getNumDocumento());
+			type.setID(0);
 			em.persist(type);
-			em.flush();
+			em.detach(type);
 		}
 	}
 

@@ -9,12 +9,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-
 <script src="<c:url value='/resources/js/jquery.js'/>"></script>
 <script src="<c:url value='/resources/js/jquery-ui.min.js'/>"></script>
 <link href="<c:url value="/resources/css/estilos.css" />" rel="stylesheet"> 
-<link rel="stylesheet" href="<c:url value='/resources/js/jquery-ui.css'/>" />
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">	
@@ -25,29 +23,37 @@
 	 var items;
 
 	 $(function() {
-    	$( "#fecha_nac" ).datepicker();
-    	$( "#fecha" ).datepicker();
-    	$( "#buscar").focus(function(){
-    		this.select();
-    	});
-
+    	$( "#fecha_nac" ).datepicker({ dateFormat: 'dd/mm/yy' });
+    	$( "#fecha" ).datepicker({ dateFormat: 'dd/mm/yy' });
     	var inputExepcion = $("#agregarForm input") 
     	var divExepcion = $("#agregarForm .form-group div") 
-    	var selectExepcion = $("#agregarForm select")     	
+    	var selectExepcion = $("#agregarForm select") 
+    	
+    	var inputDocumentoExepcion = $("#documentoForm input") 
+    	var divDocumentoExepcion = $("#documentoForm .form-group div")  
+    	var documentoLabel =  $("#documentoForm label")   	  
 		
-    	$("input").not(inputExepcion).wrap("<div></div>");
+    	$("input")
+    		.not(inputExepcion)
+    		.not(inputDocumentoExepcion)
+    		.wrap("<div></div>");
+    		
     	$("select").not(selectExepcion).wrap("<div></div>");
-    	$(".form-group div").not(divExepcion).addClass("col-sm-10");
+    	$(".form-group div")
+    		.not(divExepcion)
+    		.not(divDocumentoExepcion)
+    		.addClass("col-sm-10");
 
+		$("label").not(documentoLabel).addClass("col-sm-2 control-label");  
+		
     	$("input").addClass("form-control");
     	$("select").addClass("form-control");
-    	$("label").addClass("col-sm-2 control-label");    	
+    	$("label").addClass("control-label");    	
     	$(".form-group").addClass("form-group-sm");
-    	$("table").addClass("table table-hover");
-    	$("table").addClass("table table-hover table-bordered");
+    	$("table").addClass("table table-striped table-hover table-bordered");
     	$("form").addClass("form-horizontal");
-    	$("button").addClass("btn btn-primary");
-    	//$("ul").addClass("nav nav-pills nav-stacked");
+    	$("button").addClass("btn btn-primary"); 	
+    	$("#contenedor").addClass("col-sm-10");
   	});
 	
 	function obtenerProductoFunction() {		
@@ -82,8 +88,7 @@
 		$('#ID').val(id);
 	}
 	
-	 function cargarMunicipios(){	 		
-	 		var id = $("#estado").val();
+	 function cargarMunicipios(id){	 		
 	 		$("#municipio").empty();
 	 		$.ajax({
 	 			url:"${pageContext.servletContext.contextPath}/home/municipios",
@@ -103,21 +108,36 @@
 	 			url:"${pageContext.servletContext.contextPath}/ventas/productos?texto="+texto,
 	 			dataType:'json',
 	 			success:function(data){	 		 				
-	 				$("#IDProducto").html("");
-	 					var o = $("<option value='0'>-- Seleccione una opcion --</option>");
-	 					$("#IDProducto").append(o);
+	 				$("#productoSelect").html("");
 	 				data.map(function(item){	 					
 	 					var o = $("<option value='"+item.id+"'>"+item.descripcion+"</option>");
-	 					$("#IDProducto").append(o);
+	 					$("#productoSelect").append(o);
 	 				})
 	 				items = data;		 												 						 				 				
-	 			}
-		 	}); 		
+	 			}	 			
+		 	}); 
+		 	
+		 	$('#dialogDiv').dialog({
+		 		height: 400,
+    			width: 500,
+    			modal: false,
+    			resizable: false,
+    			position: { my: "left bottom" , at: "right bottom",  of: "#buscar" },
+    			closeOnEscape: true,
+    			create: function (event, ui) {
+        			$(".ui-widget-header").hide();
+   				} 			    			
+		 	});
+		 	
+		 	$("#buscar").focus();			 	
  	}	
  	
  	function asignar(){
- 		var i = $("#IDProducto option").index($("#IDProducto option:selected"));	 	
-		$("#precio").val(items[i-1].precioVenta)
+ 		var i = $("#productoSelect option").index($("#productoSelect option:selected"));	
+ 		$("#IDProductoHidden").val(items[i].id) 	 		
+		$("#precio").val(items[i].precioVenta)
+		$("#descripcion").html(items[i].descripcion + "<br>" + items[i].precioVenta)
+		$("#descripcionDialog").html(items[i].descripcion)
  	} 	
  	
  	function itemsToString() {
@@ -139,6 +159,10 @@
  		$("#total").val(total);
  	}
  	
+ function algo() {
+ 	alert("algo");
+ }
+ 	
 </script>
 </head>
 <body>
@@ -150,7 +174,7 @@
 			<div id="left" class="col-md-2">
 				<tiles:insertAttribute name="left"/>
 			</div>
-			<div id="centerColumn" class="col-md-8">
+			<div id="centerColumn" class="col-md-10">
 				<tiles:insertAttribute name="centerColumn"/>
 			</div>
 		</div>		

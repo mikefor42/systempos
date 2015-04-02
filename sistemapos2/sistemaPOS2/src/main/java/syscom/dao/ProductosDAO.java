@@ -11,7 +11,7 @@ public interface ProductosDAO {
 
 	public List<Producto> obtenerProductos();
 
-	void guardarProducto(Producto producto);
+	long guardarProducto(Producto producto) throws Exception;
 
 	Producto obtenerProducto(long idproducto);
 

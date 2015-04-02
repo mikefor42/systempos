@@ -2,8 +2,11 @@ package syscom.domain;
 
 import java.io.Serializable;
 
+import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -11,10 +14,8 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name="detalledocumentos")
-@PrimaryKeyJoinColumn(name="ID")
 public class DetalleDoc implements Serializable {
-	@Id
-	@Column(name="ID_Detalle_Factura")
+	@Id @Column(name="ID_Detalle_Factura")
 	long ID;
 	@Column(name="ID_Producto")
 	long IDProducto;

@@ -19,6 +19,7 @@
 	<th>Email</th>
 	<th>Editar</th>
 	<th>Borrar</th>
+	<th>Imagen</th>
 	<th></th>
 	</tr>
 	</thead>
@@ -30,6 +31,7 @@
 			<td>${personal.email}</td>
 			<td><a class="button" href="<s:url value='/personal/editar?idpersonal=${personal.ID}'/>">Editar</a></td>
 			<td><a class="button" href="<s:url value='/personal/borrar?idpersonal=${personal.ID}'/>">Borrar</a></td>
+			<td><img alt="" class="img-responsive" src="<c:url value='/imagenes?imagen=${personal.imagen}'/>" width="80px" height="80px"></td>
 			<td><a class="button" href="<s:url value='/personal/permisos?id=${personal.ID}'/>">Configuración</a></td>					
 		</tr>
 	</c:forEach>

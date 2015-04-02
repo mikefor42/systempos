@@ -17,6 +17,7 @@
 	<th>Email</th>
 	<th>Editar</th>
 	<th>Borrar</th>
+	<th>Imagen</th>
 	</tr>
 	</thead>
 	<c:forEach var="proveedor" items="${proveedores}">		
@@ -26,7 +27,8 @@
 			<td>${proveedor.rfc}</td>
 			<td>${proveedor.email}</td>
 			<td><a class="button" href="<s:url value='/proveedores/editar?idproveedor=${proveedor.ID}'/>">Editar</a></td>
-			<td><a class="button" href="<s:url value='/proveedores/borrar?idproveedor=${proveedor.ID}'/>">Borrar</a></td>					
+			<td><a class="button" href="<s:url value='/proveedores/borrar?idproveedor=${proveedor.ID}'/>">Borrar</a></td>
+			<td><img alt="" class="img-responsive" src="<c:url value='/imagenes?imagen=${proveedor.imagen}'/>" width="80px" height="80px"></td>					
 		</tr>
 	</c:forEach>
 </table>

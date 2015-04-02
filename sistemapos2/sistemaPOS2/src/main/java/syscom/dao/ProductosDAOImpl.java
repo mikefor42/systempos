@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sun.tools.ws.wsdl.document.jaxws.Exception;
+
 import syscom.domain.Atributo;
 import syscom.domain.Par;
 import syscom.domain.Producto;
@@ -43,9 +45,9 @@ public class ProductosDAOImpl implements ProductosDAO {
 	}
 
 	@Transactional
-	public void guardarProducto(Producto producto) {
+	public long guardarProducto(Producto producto) throws java.lang.Exception {
 		em.persist(producto);
-		if(producto.getAtributos() == null) return;
+		if(producto.getAtributos() == null) throw new  java.lang.Exception("El producto no tiene atributos");
 		for (Iterator iterator = producto.getAtributos().iterator(); iterator.hasNext();) {
 			Atributo type = (Atributo) iterator.next();
 			Query q = em.createNativeQuery("insert into productosatributos (productos_id_producto, atributos_id_atributos, valor) values(:producto, :atributo, :valor)");
@@ -54,6 +56,7 @@ public class ProductosDAOImpl implements ProductosDAO {
 			q.setParameter("valor", type.getValor());
 			q.executeUpdate();
 		}
+		return producto.getID();
 	}
 
 	public Producto obtenerProducto(long idproducto) {		
@@ -77,7 +80,7 @@ public class ProductosDAOImpl implements ProductosDAO {
 		p.setDescripcion(producto.getDescripcion());
 		p.setID(producto.getID());
 		p.setID_Grupo(producto.getID_Grupo());
-		p.setImagenProducto(producto.getImagenProducto());
+		p.setImagen(producto.getImagen());
 		p.setPrecioCompra(producto.getPrecioCompra());
 		p.setPrecioVenta(producto.getPrecioVenta());
 		p.setId_proveedor(producto.getId_proveedor());

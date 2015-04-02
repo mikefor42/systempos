@@ -1,5 +1,8 @@
 package syscom.dao;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -43,11 +46,11 @@ public class PersonasDAOImpl implements PersonasDAO {
 	}
 
 	
-	public void guardarPersona(Persona persona) {		
+	public void guardarPersona(Persona persona) {	
 		em.persist(persona);
 	}
 
-	public Persona obtenerPersona(long id) {
+	public Persona obtenerPersona(long id) throws ParseException {
 		return em.find(Persona.class, id);
 	}
 
@@ -101,7 +104,7 @@ public class PersonasDAOImpl implements PersonasDAO {
 		return proveedor.getID();
 	}
 
-	public Persona obtenerProveedor(long idproveedor) {
+	public Persona obtenerProveedor(long idproveedor) throws ParseException {
 		return obtenerPersona(idproveedor);
 	}
 
@@ -113,7 +116,7 @@ public class PersonasDAOImpl implements PersonasDAO {
 		borrarPersona(idproveedor);
 	}
 
-	public Persona obtenerPersonal(long idpersonal) {		
+	public Persona obtenerPersonal(long idpersonal) throws ParseException {		
 		return obtenerPersona(idpersonal);
 	}
 
@@ -152,7 +155,7 @@ public class PersonasDAOImpl implements PersonasDAO {
 		return cliente.getID();
 	}
 
-	public Persona obtenerCliente(long idCliente) {		
+	public Persona obtenerCliente(long idCliente) throws ParseException {		
 		return obtenerPersona(idCliente);
 	}
 

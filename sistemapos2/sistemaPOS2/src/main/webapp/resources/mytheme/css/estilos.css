@@ -1,15 +1,39 @@
 @CHARSET "ISO-8859-1";
 
-thead tr:first-child {
-  background: #180052;
-  color: #fff;
+#calculosDiv {
+	padding-top: 300px;
 }
 
-thead tr:last-child th {text-align: center; border-bottom: 2px solid #ddd;}
+.ui-widget-header {
+	display: none;	
+}
 
-tbody tr:hover {background-color: #f0fbff;}
-tbody tr:last-child td {border: none;}
-tbody td {border-bottom: 1px solid #ddd; text-align:center;}
+table {
+	display:block;
+}
+
+thead tr:first-child {
+	background: #180052;
+	color: #fff;
+}
+
+thead tr:last-child th {
+	text-align: center;
+	border-bottom: 2px solid #ddd;
+}
+
+tbody tr:hover {
+	background-color: #f0fbff;
+}
+
+tbody tr:last-child td {
+	border: none;
+}
+
+tbody td {
+	border-bottom: 1px solid #ddd;
+	text-align: center;
+}
 
 #navigationMenu li {
 	list-style: none;
@@ -56,8 +80,6 @@ tbody td {border-bottom: 1px solid #ddd; text-align:center;}
 	padding: 0 20px;
 	overflow: visible;
 }
-
-
 
 /* Inicio */
 #navigationMenu .home {

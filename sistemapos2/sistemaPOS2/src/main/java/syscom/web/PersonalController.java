@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -46,7 +47,7 @@ import syscom.forms.PermisosForm;
 
 @Controller
 @RequestMapping("/personal")
-@SessionAttributes("personalList")
+@SessionAttributes({"personalList","personal"})
 public class PersonalController {
 	
 	@Autowired
@@ -64,6 +65,7 @@ public class PersonalController {
 		Persona p = new Persona();
 		model.addAttribute("personal", p);	
 		model.addAttribute("estados", dao.obtenerEstados());
+		model.addAttribute("accion", "nuevo");
 		return "nuevo-personal";
 	}
 	
@@ -83,27 +85,39 @@ public class PersonalController {
 	}
 	
 	private String guardarImagen(MultipartFile imagen, long id) throws IOException {	
-		String path = "c://imagenes/"+ id + "_imagen.jpg";
+		String path = "c://imagenes/"+ id + "_personal.jpg";
 		File file = new File(path);
 		FileUtils.writeByteArrayToFile(file, imagen.getBytes());
-		return path;
+		return id + "_personal.jpg";
 	}
 	
 	@RequestMapping(value="/editar", method=RequestMethod.GET)
-	public String editarPersonal(@RequestParam(value="idpersonal", required=true) long idpersonal, Model model){
-		System.out.println("editar get");
+	public String editarPersonal(@RequestParam(value="idpersonal", required=true) long idpersonal, Model model) throws ParseException{
 		Persona p = dao.obtenerPersonal(idpersonal);
 		model.addAttribute("personal", p);
+		model.addAttribute("estados", dao.obtenerEstados());
+		model.addAttribute("municipios", dao.obtenerMunicipios(Integer.parseInt(p.getEstado())));
+		model.addAttribute("accion", "editar");
 		return "editar-personal";
 	}
 	
 	@RequestMapping(value="/editar", method=RequestMethod.POST)
-	public String editarpersonal(@ModelAttribute("personal") @Valid Persona personal, BindingResult br){
+	public String editarpersonal(@ModelAttribute("personal") @Valid Persona personalLocal, BindingResult br, Model model) throws IOException{
 		System.out.println("editar post");
 		if(br.hasErrors()){
+			for(ObjectError i : br.getAllErrors()) {
+				System.out.println(i.getDefaultMessage());
+			}			
 			return "editar-personal";
 		}		
-		dao.editarPersonal(personal);		
+		if(personalLocal.getImageFile().getSize() == 0) {
+			Persona p = (Persona) model.asMap().get("personal");
+			personalLocal.setImagen(p.getImagen());
+		} else {
+			String imagen = guardarImagen(personalLocal.getImageFile(), personalLocal.getID());
+			personalLocal.setImagen(imagen);
+		}					
+		dao.editarPersonal(personalLocal);		
 		return "redirect:/personal/";
 	}
 	

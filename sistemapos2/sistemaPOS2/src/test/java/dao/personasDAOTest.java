@@ -1,5 +1,6 @@
 package dao;
 
+import java.text.ParseException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,14 @@ public class personasDAOTest {
 	EntityManager em = emf.createEntityManager();
 	PersonasDAO personasDAO = (PersonasDAO) context.getBean("personasDAO");
 	
+	
+	@Test
+	public void pruebaObtenerClienteFecha() throws ParseException {
+		Persona p = personasDAO.obtenerCliente(9947);
+		System.out.println(p.toString());
+	}
+	
+	
 //	@Before
 //	@Ignore
 //	public void setUp() {
@@ -45,17 +54,17 @@ public class personasDAOTest {
 //
 //	
 //	
-	@Test
-	public void testObtenerClientes() {		
-		Persona p = new Persona();
-		p.setNombre("alquien");
-		p.setApellido("un apellido");
-		personasDAO.guardarCliente(p);		
-
-//		personasDAO.guardarCliente(new Persona());
-//		personasDAO.guardarCliente(new Persona());
-//		Assert.assertEquals(3, personasDAO.obtenerClientes().size());
-	}
+//	@Test
+//	public void testObtenerClientes() {		
+//		Persona p = new Persona();
+//		p.setNombre("alquien");
+//		p.setApellido("un apellido");
+//		personasDAO.guardarCliente(p);		
+//
+////		personasDAO.guardarCliente(new Persona());
+////		personasDAO.guardarCliente(new Persona());
+////		Assert.assertEquals(3, personasDAO.obtenerClientes().size());
+//	}
 //	
 //	@Test
 //	@Ignore

@@ -1,8 +1,14 @@
 package dao;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStreamImpl;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -22,25 +28,26 @@ public class OperacionesDAOTest {
 	EntityManagerFactory emf = (EntityManagerFactory) context.getBean("emf");
 	OperacionesDAO operacionesDAO = (OperacionesDAO) context.getBean("operacionesDAO");
 	ProductosDAO productosDAO = (ProductosDAO) context.getBean("productosDAO");
-//	 
-//	@Test  
-//	public void guardarDocumento(){
-////		em.getTransaction().begin();
-////		em.createNativeQuery("delete from documentos").executeUpdate();
-////		em.createNativeQuery("delete from detalledocumentos").executeUpdate();
-////		em.getTransaction().commit();
-//		
-//		Documento documento = new Documento();
-//		ArrayList<DetalleDoc> detalles = new ArrayList<DetalleDoc>();		
-//		DetalleDoc detalle1 = new DetalleDoc();
-//		DetalleDoc detalle2 = new DetalleDoc();
-//		DetalleDoc detalle3 = new DetalleDoc();
-//		detalles.add(detalle1);
-//		detalles.add(detalle2);
-//		detalles.add(detalle3);
-//		documento.setDetalleList(detalles);
-//		operacionesDAO.guardarDocumento(documento);		
-//	}
+	 
+	@Test  
+	public void guardarDocumento(){
+//		em.getTransaction().begin();
+//		em.createNativeQuery("delete from documentos").executeUpdate();
+//		em.createNativeQuery("delete from detalledocumentos").executeUpdate();
+//		em.getTransaction().commit();
+		
+		Documento documento = new Documento();
+		documento.setNumDocumento("1111");
+		ArrayList<DetalleDoc> detalles = new ArrayList<DetalleDoc>();		
+		DetalleDoc detalle1 = new DetalleDoc();		
+		DetalleDoc detalle2 = new DetalleDoc();
+		DetalleDoc detalle3 = new DetalleDoc();
+		detalles.add(detalle1);
+		detalles.add(detalle2);
+		detalles.add(detalle3);
+		//documento.setDetalleList(detalles);
+		operacionesDAO.guardarDocumento(documento, detalles);		
+	}
 	
 //	@Test 
 //	public void autocompleteProductos() {
@@ -49,10 +56,16 @@ public class OperacionesDAOTest {
 //	}
 //	
 	
-	@Test
-	public void obtenerNumeroDeFactura() {		
-		Assert.assertEquals(8123, operacionesDAO.obtenerNumeroDocumento());
-	}
-	
+//	@Test
+//	public void obtenerNumeroDeFactura() {		
+//		Assert.assertEquals(8123, operacionesDAO.obtenerNumeroDocumento());
+//	}
+//	
+//	@Test
+//	public void obtenerImagen() throws IOException {
+//
+//		
+//	}
+//	
 
 }

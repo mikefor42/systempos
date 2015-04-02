@@ -20,6 +20,7 @@
 <th>Celular</th>
 <th>Editar</th>
 <th>Borrar</th>
+<th>Imagen</th>
 </tr>
 </thead>
 	<c:forEach var="cliente" items="${clientes}">		
@@ -31,7 +32,8 @@
 			<td>${cliente.telefonoFijo}</td>
 			<td>${cliente.telefonoCelular}</td>
 			<td><a class="button" href="<s:url value='/clientes/editar?idCliente=${cliente.ID}'/>">Editar</a></td>
-			<td><a class="button" href="<s:url value='/clientes/borrar?idCliente=${cliente.ID}'/>">Borrar</a></td>					
+			<td><a class="button" href="<s:url value='/clientes/borrar?idCliente=${cliente.ID}'/>">Borrar</a></td>
+			<td><img alt="" class="img-responsive" src="<c:url value='/imagenes?imagen=${cliente.imagen}'/>" width="80px" height="80px"></td>					
 		</tr>
 	</c:forEach>
 </table>
