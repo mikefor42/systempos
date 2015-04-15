@@ -28,6 +28,7 @@ import syscom.dao.ProductosDAO;
 import syscom.domain.Atributo;
 import syscom.domain.AtributoProducto;
 import syscom.domain.Par;
+import syscom.domain.Persona;
 import syscom.domain.Producto;
 
 @Controller
@@ -88,7 +89,7 @@ public class ProductosController {
 	}
 	
 	private String guardarImagen(MultipartFile imagen, long id) throws IOException {	
-		String path = "c://imagenes/productos"+ id + "_producto.jpg";
+		String path = "c://imagenes/productos/"+ id + "_producto.jpg";
 		File file = new File(path);
 		FileUtils.writeByteArrayToFile(file, imagen.getBytes());
 		return id + "_producto.jpg";
@@ -116,18 +117,37 @@ public class ProductosController {
 	public String editarProducto(@RequestParam(value="idproducto", required=true) long idproducto, Model model){
 		Producto p = productosDAO.obtenerProducto(idproducto);
 		model.addAttribute("producto", p);
+		model.addAttribute("atributo", new Atributo());
+		
 		model.addAttribute("grupos", productosDAO.obtenerGrupos());
 		model.addAttribute("proveedores", personasDAO.obtenerProveedores());
-		model.addAttribute("accion","editar");		
+		model.addAttribute("accion","editar");
+		model.addAttribute("gruposList", productosDAO.obtenerGrupos());
+		model.addAttribute("atributoForm", new Par());
+		model.addAttribute("atributosList", productosDAO.obtenerAllAtributos());
+		
+		model.addAttribute("grupoForm", new Par());
+		model.addAttribute("gruposList", productosDAO.obtenerGrupos());
+		
 		return "editar-producto";
 	}
 	
 	@RequestMapping(value="/editar", method=RequestMethod.POST)
-	public String editarProducto(@Valid Producto producto, BindingResult br){
+	public String editarProducto(@Valid Producto productoLocal, BindingResult br, Model model) throws IOException{
 		if(br.hasErrors()){
+			for(ObjectError i : br.getAllErrors()) {
+				System.out.println(i.getDefaultMessage());
+			}
 			return "editar-producto";
 		}		
-		productosDAO.editarProducto(producto);		
+		if(productoLocal.getImageFile().getSize() == 0) {
+			Producto p = (Producto) model.asMap().get("producto");
+			productoLocal.setImagen(p.getImagen());
+		} else {
+			String imagen = guardarImagen(productoLocal.getImageFile(), productoLocal.getID());
+			productoLocal.setImagen(imagen);
+		}
+		productosDAO.editarProducto(productoLocal);		
 		return "redirect:/productos/";
 	}
 	
@@ -170,8 +190,4 @@ public class ProductosController {
 		productosDAO.guardarGrupo(grupo);	
 		return "redirect:/productos/nuevo";
 	}
-	
-	
-
-
 }

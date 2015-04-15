@@ -38,7 +38,7 @@
 			<td>
 				<a class="button" href="<s:url value='/productos/borrar?idproducto=${producto.ID}'/>">Borrar</a>
 			</td>	
-			<td><img alt="" class="img-responsive" src="<c:url value='/imagenesProductos?imagen=${personal.imagen}'/>" width="80px" height="80px"></td>				
+			<td><img alt="" class="img-responsive" src="<c:url value='/imagenesProductos?imagen=${producto.imagen}'/>" width="80px" height="80px"></td>				
 		</tr> 
 	</c:forEach>
 </table>

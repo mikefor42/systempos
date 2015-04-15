@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -125,7 +126,7 @@ public class VentasController {
 		}		
 		
 		documento.setDetalleList((List) model.asMap().get("detalleList"));
-		operacionesDAO.guardarDocumento(documento);
+		//operacionesDAO.guardarDocumento(documento,(List) model.asMap().get("detalleList"));
 		model.addAttribute("mensaje", "El documento se ha guardado de forma exitosa");
 		model.addAttribute("opciones", true);
 		return "ventas-form";
@@ -152,8 +153,25 @@ public class VentasController {
 	@RequestMapping(value="/imprimir", method=RequestMethod.GET)	
 	public @ResponseBody void imprimir(Model model, HttpServletResponse response) throws IOException, JRException {
 		List<DetalleDoc> l = (List<DetalleDoc>) model.asMap().get("detalleList");
-		HashMap<String, Object> parameters = new HashMap(); 
-		InputStream reportStream = new FileInputStream( "C:/Users/Syscom020/Documento.jasper");
+		HashMap<String, Object> parameters = new HashMap();
+		parameters.put("fecha",new Date().toLocaleString());
+		parameters.put("nro_factura","0001");
+		parameters.put("empresa_nombre","La ZAPATERIA");
+		parameters.put("empresa_rfc","LZA101208HGT");
+		parameters.put("empresa_direccion","Juarez 20 Col. Centro");
+		parameters.put("empresa_telefonos","775345654");
+		parameters.put("ciudad_empresa","Tulancingo Hidalgo");
+		parameters.put("empresa_email","lazapateria@hotmail.com");
+		parameters.put("fecha_factura",new Date().toLocaleString());
+		parameters.put("rfc","HEMM93029GGR");
+		parameters.put("telefono","775345566");
+		parameters.put("direccion","Centro Tulancingo");
+		parameters.put("ciudad","Tulancingo Hidalgo");
+		parameters.put("cliente","Miguel Angel Hernandez y Algo");
+		parameters.put("valor_total_sum","2000.00");
+		parameters.put("iva_sum","230.00");
+		parameters.put("TOTAL","2230.00");
+		InputStream reportStream = new FileInputStream( "C:/Users/Syscom020/Documents/documentoVentas.jasper");
 		JRDataSource dataSource = new JRBeanCollectionDataSource(l, true);
 		JasperPrint print = JasperFillManager.fillReport(reportStream, parameters, dataSource);
 		response.setContentType("application/pdf");
@@ -164,4 +182,12 @@ public class VentasController {
 		out.flush();
 		out.close(); 		
 	}
+	
+	@RequestMapping(value="/listadoDocumentos", method=RequestMethod.GET)
+	public String listarDocumentos(Model model) {
+		List<Documento> l = operacionesDAO.obtenerDocumentos();
+		model.addAttribute("documentosList",l);
+		return "listado_documentos";
+	}
+	
 }

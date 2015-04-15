@@ -60,5 +60,4 @@ public class HomeController {
 		OutputStream out = response.getOutputStream();
 		ImageIO.write(image, "jpg", out);
 	}
-
 }

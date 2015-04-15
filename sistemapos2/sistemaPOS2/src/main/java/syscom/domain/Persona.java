@@ -58,23 +58,23 @@ public class Persona  implements Serializable {
 	MultipartFile imageFile;
 	
 	public Persona () {
-//		this.ID = (long)(Math.random() * 10000); 
-//		this.nombre = "nombr"+this.ID;
-//		this.apellido = "apellido"+this.ID;
-//		this.pais = "pais"+this.ID;
-//		this.estado = "estado"+this.ID;
-//		this.municipio = "municipio"+this.ID;
-//		this.direccion = "direccion"+this.ID;
-//		this.telefonoFijo =	 "tFijo"+this.ID;
-//		this.telefonoCelular = "tCel"+this.ID;
-//		this.rfc = "rfc"+this.ID;
-//		this.activo = 1;
-//		this.tipo =	 0;
-//		this.email = "email"+this.ID;
-//		this.imagen = "imagen"+this.ID;	
-//		this.fecha_nac = new Date();
-//		this.usuario = "usuario"+ID;
-//		this.ID = 0;
+		this.ID = (long)(Math.random() * 10000); 
+		this.nombre = "nombr"+this.ID;
+		this.apellido = "apellido"+this.ID;
+		this.pais = "pais"+this.ID;
+		this.estado = "estado"+this.ID;
+		this.municipio = "municipio"+this.ID;
+		this.direccion = "direccion"+this.ID;
+		this.telefonoFijo =	 "tFijo"+this.ID;
+		this.telefonoCelular = "tCel"+this.ID;
+		this.rfc = "rfc"+this.ID;
+		this.activo = 1;
+		this.tipo =	 0;
+		this.email = "email"+this.ID;
+		this.imagen = "imagen"+this.ID;	
+		this.fecha_nac = new Date();
+		this.usuario = "usuario"+ID;
+		this.ID = 0;
 	}
 	
 	public long getID() {

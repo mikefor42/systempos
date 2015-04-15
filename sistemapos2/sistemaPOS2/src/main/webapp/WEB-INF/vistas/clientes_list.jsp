@@ -10,7 +10,8 @@
   <a href="${pageContext.servletContext.contextPath}/clientes/nuevo"> <button class="nuevo">NUEVO</button></a>
    
 <h2>Lista de clientes actuales</h2>
-<table class="table table-hover">	
+<div style="height:400px; width:900px; overflow:auto;">
+<table>	
 <thead>	<tr>
 <th>Nombre</th>
 <th>Apellido</th>
@@ -37,5 +38,6 @@
 		</tr>
 	</c:forEach>
 </table>
+ </div>
 <td><a class="button" href="<s:url value='/clientes/imprimir'/>">Reporte de clientes</a></td>
 </div>

@@ -6,9 +6,12 @@
 <form:form id="agregarForm" modelAttribute="documento" action="${pageContext.servletContext.contextPath}/ventas/agregar" role="form" cssClass="form-horizontal" >
 	<div class="row">
 		<div class="col-sm-7"></div>
-			<div class="col-sm-5 h5" align="right">Jueves 22 de Marzo de 2015</div><br><hr size="2px" width="80%" noshade="noshade" align="right" />
-		</div>		
-			<form:hidden path="detalle.numDocumento" value="${documento.numDocumento}"/>			
+		<div class="col-sm-5 h5" align="right">Jueves 22 de Marzo de 2015</div><br>
+		<a class="back" href="${pageContext.servletContext.contextPath}/ventas/listadoDocumentos">Listado de facturas</a>
+		<hr size="2px" width="80%" noshade="noshade" align="right" />
+	</div>		
+	<form:hidden path="detalle.numDocumento" value="${documento.numDocumento}"/>			
+
 	<div class="form-group">
 		<form:label path="IDCliente">Cliente:</form:label>
 		<div class="col-sm-10"><form:select path="IDCliente">
@@ -24,13 +27,13 @@
 		
 	<div class="form-group">
 		<label for='buscar'>Producto:</label>
-		<div class="col-sm-3"><input type="text" id="buscar" oninput="autocompletar();"/><form:hidden path="detalle.IDProducto" id="IDProductoHidden"/><form:hidden id="precio" path='detalle.precio'/></div>
+		<div class="col-sm-3"><input type="text" id="buscar"/><form:hidden path="detalle.IDProducto" id="IDProductoHidden"/><form:hidden id="precio" path='detalle.precio'/></div>
 		<div class="col-sm-7" ><label id="descripcion"></label></div>			
 	</div>	
 	
 	<div class="form-group">
 		<form:label path="detalle.cantidad">Cantidad:</form:label>
-		<div class="col-sm-10"><form:input  id="cantidad" path='detalle.cantidad'/></div>
+		<div class="col-sm-10"><form:input  id="cantidad" path='detalle.cantidad' value="1" /></div>
 	</div>
 	<div class="form-group">
 		<label>  </label>
@@ -77,14 +80,14 @@
 	<fieldset>			
 	<div class="form-group">	
 		<label class="col-sm-5">Subtotal:</label>
-		<div class="col-sm-6"><form:input style="color:black" path='subtotal'/></div>
+		<div class="col-sm-7"><form:input style="color:black" path='subtotal'/></div>
 	</div>	
 	<div class="form-group">
 		<label class="col-sm-5">Descuento:</label>
 		<div class="col-sm-7">
 			<div class="input-group">	
-				<div class="input-group-addon col-sm-1" >%</div>
-				<div class="col-sm-9"><form:input path='descuento' onblur="calcular()"/></div>
+				<span class="input-group-addon sizing-addon1" >%</span>
+				<form:input path='descuento' onblur="calcular()"/>
 			</div>	
 		</div>
 	</div>	
@@ -92,19 +95,27 @@
 		<label class="col-sm-5">Iva:</label>
 		<div class="col-sm-7">
 			<div class="input-group">
-				<div class="input-group-addon col-sm-1">%</div>
-				<div class="col-sm-9"><form:input path='iva' onblur="calcular()"/></div>
+				<span class="input-group-addon sizing-addon1">%</span>
+				<form:input path='iva' onblur="calcular()"/>
 			</div>
 		</div>
 	</div>
 	<div class="form-group">	
 		<label class="col-sm-5">Total:</label>
-		<div class="col-sm-6"><form:input path="total"/></div>
+		<div class="col-sm-7"><form:input path="total"/></div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-5">A crédito:</label>
+		<div class="col-sm-7"><input type="checkbox" onclick="$('#creditoDiv').css('display','block')"></input> </div>
+	</div>
+	<div id="creditoDiv" style="display: none">
+		<label class="col-sm-5">Dias:</label><div class="col-sm-7"><form:input path="dias"/><br><form:button onclick="return false;">Ver créditos</form:button></div>
 	</div>
 	<div class="form-group">
 		<label></label>
-		<div><form:button class="enviar">Enviar datos</form:button></div>		
-	</div>
+		<div><form:button class="enviar" >Enviar datos</form:button></div>		
+	</div>	
 	</fieldset>
+	
 </form:form>
 </div>

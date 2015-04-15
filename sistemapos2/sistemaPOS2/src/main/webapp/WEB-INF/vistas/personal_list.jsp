@@ -9,7 +9,7 @@
 <a href="${pageContext.servletContext.contextPath}/personal/nuevo"> <button class="nuevo">NUEVO</button></a>
    
 <h2>Lista del personal actual</h2>
-
+<div style="height:400px; width:900px; overflow:auto;">
 <table>	
 	<thead>
 	<tr>
@@ -36,5 +36,6 @@
 		</tr>
 	</c:forEach>
 </table>
+</div>
 <td><a class="button" href="<s:url value='/personal/imprimir'/>">Reporte de personal</a></td>
 </div>

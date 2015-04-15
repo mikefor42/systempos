@@ -9,7 +9,7 @@
 }
 
 table {
-	display:block;
+	display:table;
 }
 
 thead tr:first-child {

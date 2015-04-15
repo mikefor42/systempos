@@ -16,6 +16,7 @@ import javax.persistence.Transient;
 @Table(name="detalledocumentos")
 public class DetalleDoc implements Serializable {
 	@Id @Column(name="ID_Detalle_Factura")
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	long ID;
 	@Column(name="ID_Producto")
 	long IDProducto;
@@ -42,15 +43,15 @@ public class DetalleDoc implements Serializable {
 	String numDocumento;
 	
 	public DetalleDoc(){
-//		 this.ID = (long)(Math.random() * 10000);
-//		 this.IDProducto = 3;
-//		 this.cantidad  = 3;
-//		 this.precio = 20;
-//		 this.iva =14;
-//		 this.descuento = 10;
-//		 this.subtotal = 200;
-//		 this.total = 300;
-//		 numDocumento = "1234";
+		 this.ID = (long)(Math.random() * 10000);
+		 this.IDProducto = 3;
+		 this.cantidad  = 3;
+		 this.precio = 20;
+		 this.iva =14;
+		 this.descuento = 10;
+		 this.subtotal = 200;
+		 this.total = 300;
+		 numDocumento = "1234";
 		
 	}
 	

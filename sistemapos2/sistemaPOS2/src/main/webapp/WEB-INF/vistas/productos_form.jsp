@@ -42,8 +42,8 @@
 	<div class="form-group">
 		<label></label>
 		<form:button  class="enviar">Enviar datos</form:button>&nbsp;&nbsp;&nbsp;&nbsp; 
-		<button type="button" onclick="$('#atributosDiv').dialog();">Agregar Atributos</button>
-		<button type="button" onclick="$('#gruposDiv').dialog();">Agregar Grupos</button>
+		<button type="button" onclick="$('#atributosDiv').dialog({closeOnEscape: true});">Agregar Atributos</button>
+		<button type="button" onclick="$('#gruposDiv').dialog(closeOnEscape: true);">Agregar Grupos</button>
 	</div>
 	</fieldset>
 </form:form>

@@ -26,4 +26,6 @@ public interface OperacionesDAO {
 	List<Cuenta> obtenerCuentasxCobrar();
 
 	String obtenerNumeroDocumento();
+
+	List<Documento> obtenerDocumentos();
 }

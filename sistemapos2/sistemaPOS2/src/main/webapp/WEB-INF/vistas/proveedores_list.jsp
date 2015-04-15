@@ -8,6 +8,7 @@
 <a href="${pageContext.servletContext.contextPath}/proveedores/nuevo"> <button class="nuevo">NUEVO</button></a>
    
 <h2>Lista de proveedores actuales</h2>
+<div style="height:400px; width:900px; overflow:auto;">
 <table>	
 <thead>
 	<tr>
@@ -32,5 +33,6 @@
 		</tr>
 	</c:forEach>
 </table>
+</div>
 <td><a class="button" href="<s:url value='/proveedores/imprimir'/>">Reporte de proveedores</a></td>
 </div>

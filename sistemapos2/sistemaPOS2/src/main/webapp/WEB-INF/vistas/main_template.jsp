@@ -25,14 +25,45 @@
 	 $(function() {
     	$( "#fecha_nac" ).datepicker({ dateFormat: 'dd/mm/yy' });
     	$( "#fecha" ).datepicker({ dateFormat: 'dd/mm/yy' });
-    	var inputExepcion = $("#agregarForm input") 
+    	
+    	$("#buscar").autocomplete({
+			source:function(request,response){
+			 	$.get("${pageContext.servletContext.contextPath}/ventas/productos?texto="+request.term,function(data){
+			 		response($.map(data,function(item){
+			 			return {
+			 				label: item.descripcion,
+			 				value: item.descripcion, 
+			 				id:item.id,
+			 				precioVenta:item.precioVenta,
+			 				descripcion:item.descripcion
+			 			};
+			 		}));
+			 	},'json').error(function(error){
+			});
+		},
+		minLength: 2,
+		select: function (event, ui) { 
+			$("#IDProductoHidden").val(ui.item.id); 
+			$("#precio").val(ui.item.precioVenta);
+			$("#cantidad").val("1.0");
+			$("#descripcion").html(ui.item.descripcion + "<br>" + ui.item.precioVenta);
+			$("#descripcionDialog").html(ui.item.descripcion);
+		},
+		open: function () {
+			$(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+		},
+		close: function () {
+			$(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+		}
+		});  	  
+		
+		var inputExepcion = $("#agregarForm input") 
     	var divExepcion = $("#agregarForm .form-group div") 
     	var selectExepcion = $("#agregarForm select") 
     	
     	var inputDocumentoExepcion = $("#documentoForm input") 
     	var divDocumentoExepcion = $("#documentoForm .form-group div")  
-    	var documentoLabel =  $("#documentoForm label")   	  
-		
+    	var documentoLabel =  $("#documentoForm label") 
     	$("input")
     		.not(inputExepcion)
     		.not(inputDocumentoExepcion)

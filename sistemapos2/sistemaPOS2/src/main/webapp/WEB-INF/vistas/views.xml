@@ -95,7 +95,12 @@
 	</definition>	
 	
 	<definition name="atributos" template="/WEB-INF/vistas/atributos.jsp"/>
-	<definition name="grupos" template="/WEB-INF/vistas/grupos.jsp"/>			
+	<definition name="grupos" template="/WEB-INF/vistas/grupos.jsp"/>	
+	
+	<definition name="listado_documentos" extends="template">
+		<put-attribute name="centerColumn" value="/WEB-INF/vistas/listadoDocumentos.jsp"/>
+	</definition>	
+			
 </tiles-definitions>
 
 

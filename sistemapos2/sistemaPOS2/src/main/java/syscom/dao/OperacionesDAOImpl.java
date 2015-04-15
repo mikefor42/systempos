@@ -16,6 +16,7 @@ import syscom.domain.Abono;
 import syscom.domain.Cuenta;
 import syscom.domain.DetalleDoc;
 import syscom.domain.Documento;
+import syscom.domain.Persona;
 import syscom.domain.Producto;
 
 @Component
@@ -36,12 +37,11 @@ public class OperacionesDAOImpl implements OperacionesDAO {
 	@Transactional
 	public void guardarDocumento(Documento documento, List<DetalleDoc> detalleList) {
 		em.persist(documento);		
-		for (Iterator iterator = detalleList.iterator(); iterator.hasNext();) {			
+		for (Iterator iterator = documento.getDetalleList().iterator(); iterator.hasNext();) {			
 			DetalleDoc type = (DetalleDoc) iterator.next();
 			type.setNumDocumento(documento.getNumDocumento());
 			type.setID(0);
 			em.persist(type);
-			em.detach(type);
 		}
 	}
 
@@ -85,5 +85,14 @@ public class OperacionesDAOImpl implements OperacionesDAO {
 	public String obtenerNumeroDocumento() {
 		Query q = em.createNativeQuery("select case isnull(max(ID_Factura)) when 1  then 0001 else  max(ID_Factura)+1 end as algo from documentos");
 		return q.getSingleResult().toString();
+	}
+
+	public List<Documento> obtenerDocumentos() {
+		Query query = em.createNativeQuery("select * from documentos", Documento.class);	
+		List<Documento> l = query.getResultList();
+		for(Documento d : l) {
+			d.setCliente(em.find(Persona.class, d.getIDCliente()));
+		}
+		return l;
 	}	
 }

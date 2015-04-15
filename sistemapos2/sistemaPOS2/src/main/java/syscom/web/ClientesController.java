@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -124,7 +125,8 @@ public class ClientesController {
 	public @ResponseBody void imprimir(Model model, HttpServletResponse response) throws IOException, JRException {
 		List<Persona> l = (List<Persona>) model.asMap().get("clientes");
 		HashMap<String, Object> parameters = new HashMap(); 
-		InputStream reportStream = new FileInputStream( "C:/Users/Syscom020/Clientes.jasper");
+		parameters.put("fecha", new Date().toLocaleString());
+		InputStream reportStream = new FileInputStream( "C:/Users/Syscom020/Documents/clientes.jasper");
 		JRDataSource dataSource = new JRBeanCollectionDataSource(l, true);
 		JasperPrint print = JasperFillManager.fillReport(reportStream, parameters, dataSource);
 		response.setContentType("application/pdf");
